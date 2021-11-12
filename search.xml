@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>信息收集</title>
+      <link href="/2021/11/12/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"/>
+      <url>/2021/11/12/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="信息收集："><a href="#信息收集：" class="headerlink" title="信息收集："></a>信息收集：</h1><p>忙里偷闲，总结了一下信息收集的相关知识，后面会对每一个部分进行详细的介绍。</p><p><img src="../images/image-20211112221100010.png" alt="image-20211112221100010"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 信息收集 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>logistic Regression</title>
+      <link href="/2021/11/10/Logistic%20Regression/"/>
+      <url>/2021/11/10/Logistic%20Regression/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h2><p>逻辑回归（Logistic Regression）是一种用于解决<strong>二分类</strong>（0 or 1）问题的机器学习方法，用于估计某事件发生的可能性。比如某用户购买某商品的可能性，某病人患有某种疾病的可能性，以及某广告被用户点击的可能性等。其本质是：假设数据服从某个分布，然后使用<strong>极大似然估计</strong>做参数的估计。</p><blockquote><p>什么是极大似然估计呢？极大似然估计提供了一种给定观察数据来评估模型参数的方法，即：“模型已定，参数未知”。通过若干次试验，观察其结果，利用试验结果得到某个参数值能够使样本出现的概率为最大，则称为极大似然估计。</p></blockquote><h2 id="2-模型"><a href="#2-模型" class="headerlink" title="2.模型"></a>2.模型</h2><p>逻辑回归的函数如下所示：</p><p><img src="../images/image-20211110203153092.png" alt="image-20211110203153092"></p><p>其中x是我们的输入数据，参数θ是要学习的。其中**g(z)**是Sigmoid函数，它是一个s形的曲线，它的取值在[0, 1]之间，在远离0的地方函数的值会很快接近0或者1。它的这个特性对于解决二分类问题十分重要。</p><p>一个机器学习的模型，实际上是把决策函数限定在某一组条件下，这组限定条件就决定了模型的假设空间。当然，我们还希望这组限定条件简单而合理。而<strong>逻辑回归模型所做的假设</strong>是：</p><p><img src="../images/image-20211110204237964.png" alt="image-20211110204237964"></p><p>这个函数的意思就是在给定<strong>x</strong>和<strong>参数θ</strong>的条件下<strong>y=1</strong>的概率。</p><p>对于逻辑回归，其图像如下所示：</p><p><img src="../images/image-20211111125759654.png" alt="image-20211111125759654"></p><p>如果设定阈值为0.5时（即h(θ)大于0.5）认为y=1，那么只需要z大于0，选择0.5作为阈值是一个一般的做法，实际应用时特定的情况可以选择不同阈值，如果对正例的判别准确性要求高，可以选择阈值大一些，对正例的召回要求高，则可以选择阈值小一些。</p><p>决策边界，也称为决策面，是用于在N维空间，将不同类别样本分开的平面或曲面。</p><blockquote><p>决策边界是假设函数的属性，由参数决定，而不是由数据集的特征决定。<strong>决策边界其实就是一个方程</strong></p></blockquote><p>在逻辑回归中，假设函数<strong>h=g(z</strong>)用于计算样本属于某类别的可能性，决策函数 <strong>P(Y=1|X)&gt;阈值</strong>用于计算（给出）样本的类别，决策边界由 <img src="../images/image-20211111130916135.png" alt="image-20211111130916135" style="zoom: 67%;" />来标识出分类函数（模型）的分类边界。</p><h2 id="3-代价函数（Cost-Function）"><a href="#3-代价函数（Cost-Function）" class="headerlink" title="3.代价函数（Cost Function）"></a>3.代价函数<strong>（Cost Function）</strong></h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>科研写作</title>
       <link href="/2021/11/08/%E7%A7%91%E7%A0%94%E5%86%99%E4%BD%9C/"/>
       <url>/2021/11/08/%E7%A7%91%E7%A0%94%E5%86%99%E4%BD%9C/</url>
