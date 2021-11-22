@@ -4,11 +4,86 @@
   
     
     <entry>
+      <title>pytorch学习</title>
+      <link href="/2021/11/22/pytorch%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2021/11/22/pytorch%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-如何自定义一个数据集"><a href="#1-如何自定义一个数据集" class="headerlink" title="1.如何自定义一个数据集"></a>1.如何自定义一个数据集</h1><p>所谓数据集，其实就是一个负责处理索引(index)到样本(sample)映射的一个类(class)。这样一个数据集dataset，举个例子，当使用dataset[idx]命令时，可以在你的硬盘中读取你的数据集中第idx张图片以及其标签（如果有的话），len(dataset)则会返回这个数据集的容量。</p><p><strong>torch.utils.data.Dataset</strong> 是一个表示数据集的抽象类。任何自定义的数据集都需要继承这个类并覆写相关方法。自定义一个类的方法如下图所示：</p><p><img src="/images/image-20211122093714953.png" alt="image-20211122093714953"></p><p>例一：图片文件储存在“./data/faces/”文件夹下，图片的名字并不是从1开始，而是从train_tag_dict.txt这个文件保存的字典中读取，label信息也是用这个文件中读取。</p><p><img src="/images/image-20211122094326551.png" alt="image-20211122094326551"></p><h1 id="2-如何读取数据"><a href="#2-如何读取数据" class="headerlink" title="2.如何读取数据"></a>2.如何读取数据</h1><h2 id="2-1-ImageFolder的使用"><a href="#2-1-ImageFolder的使用" class="headerlink" title="2.1 ImageFolder的使用"></a>2.1 ImageFolder的使用</h2><p><strong>注意：</strong>ImageFolder要求图像文件夹如有如下组织方式：（如果不是以下的方式，则不能使用）</p><p><img src="/images/image-20211122102347195.png" alt="image-20211122102347195"></p><p>ImageFolder类的定义如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class ImageFolder(root, transform=None, target_transform=None,loader=default_loader, is_valid_file=None)</span><br></pre></td></tr></table></figure><p><strong>root:</strong> 包含类别文件夹的上一层目录，例如D:\MLproject\read_data\hymenoptera_data\train<br><strong>transform:</strong> 对读出图像的数字矩阵进行的变换，输入为torchvision.transforms对象<br><strong>target_transform:</strong> 对图像的类别（标签值）进行的变换<br><strong>loader:</strong> 读取图像的方式，默认读取为RGB格式的PIL Image对象<br>**is_valid_file:**检查图像是否损坏</p><p>一般情况下我们只需使用root和transform两个参数，其他参数选择默认即可，基本使用方法：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from torchvision.datasets import ImageFolder</span><br><span class="line">root_train = r&quot;D:\MLproject\read_data\hymenoptera_data\train&quot;</span><br><span class="line">root_test = r&quot;D:\MLproject\read_data\hymenoptera_data\val&quot;</span><br><span class="line">train_dataset = ImageFolder(root_train)</span><br><span class="line">test_dataset = ImageFolder(root_test)</span><br></pre></td></tr></table></figure><p>ImageFolder返回的对象是一个包含数据集所有图像及对应标签构成的二维元组容器，支持索引和迭代，<strong>可作为torch.utils.data.DataLoader的输入</strong>。具体形式如下所示。</p><p><img src="/images/image-20211122103145789.png" alt="image-20211122103145789"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> pytorch </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数据预处理</title>
+      <link href="/2021/11/21/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
+      <url>/2021/11/21/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-数据导入导出"><a href="#1-数据导入导出" class="headerlink" title="1.数据导入导出"></a>1.数据导入导出</h1><h2 id="1-1导入csv"><a href="#1-1导入csv" class="headerlink" title="1.1导入csv"></a>1.1导入csv</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandas.read_csv</span><br></pre></td></tr></table></figure><p><img src="../images/image-20211121211059421.png" alt="image-20211121211059421"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usecols=[0,1,2,3]表示从csv文件第一列取到第四列</span><br></pre></td></tr></table></figure><p><img src="../images/image-20211121211807189.png" alt="image-20211121211807189"></p><h2 id="1-2导入Excel"><a href="#1-2导入Excel" class="headerlink" title="1.2导入Excel"></a>1.2导入Excel</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandas.read_excel</span><br></pre></td></tr></table></figure><p><img src="../images/image-20211121211707893.png" alt="image-20211121211707893"></p><p>用法：</p><p><img src="../images/image-20211121211946733.png" alt="image-20211121211946733"></p><h2 id="1-3到处csv、excel"><a href="#1-3到处csv、excel" class="headerlink" title="1.3到处csv、excel"></a>1.3到处csv、excel</h2><p> <img src="../images/image-20211121212234383.png" alt="image-20211121212234383"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 深度学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据读写 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>深度学习</title>
+      <link href="/2021/11/21/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2021/11/21/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="卷积神经网络的原理与结构"><a href="#卷积神经网络的原理与结构" class="headerlink" title="卷积神经网络的原理与结构"></a>卷积神经网络的原理与结构</h1><h2 id="1-为什么卷积神经网络会有作用？"><a href="#1-为什么卷积神经网络会有作用？" class="headerlink" title="1.为什么卷积神经网络会有作用？"></a>1.为什么卷积神经网络会有作用？</h2><h3 id="1-局部性"><a href="#1-局部性" class="headerlink" title="1.局部性"></a>1.局部性</h3><p>图片的类别是由图片中的特征来决定的，通常情况下特征是由图片的局部区域来决定的。所以通过卷积提取特征后可以很好的判定图片的类别。</p><h3 id="2-相同性"><a href="#2-相同性" class="headerlink" title="2.相同性"></a>2.相同性</h3><p>对于同一类别的不同照片，其特征往往是相同的，虽然特征会出现在图片中的不同位置，但是依然可以去用同样的检测模式去检测不同图片的相同特征。</p><h3 id="3-不变性"><a href="#3-不变性" class="headerlink" title="3.不变性"></a>3.不变性</h3><p>对于一张大图片，如果进行下采样，那么图片的性质基本保持不变。</p><h1 id="2-卷积神经网络结构"><a href="#2-卷积神经网络结构" class="headerlink" title="2.卷积神经网络结构"></a>2.卷积神经网络结构</h1><p>卷积神经网络中主要的层结构大概分为卷积层、池化层和全连接层。</p><h2 id="1-卷积层"><a href="#1-卷积层" class="headerlink" title="1.卷积层"></a>1.卷积层</h2><p>卷积层的输出深度与使用的卷积核（滤波器）数量一致，每种滤波器所做的就是在输入的数据中寻找一种特征。</p><p>边界填充可以控制输出数据在空间上的尺寸。经过一层卷积层输出的尺寸是多少呢？大小为：<br>$$<br>(W-F+2P)/S+1<br>$$<br>W</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 深度学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>信息收集</title>
       <link href="/2021/11/12/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"/>
       <url>/2021/11/12/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</url>
       
-        <content type="html"><![CDATA[<h1 id="信息收集："><a href="#信息收集：" class="headerlink" title="信息收集："></a>信息收集：</h1><p>忙里偷闲，总结了一下信息收集的相关知识，后面会对每一个部分进行详细的介绍。</p><p><img src="/images/image-20211112222207592.png" alt="image-20211112222207592"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="信息收集："><a href="#信息收集：" class="headerlink" title="信息收集："></a>信息收集：</h1><p>忙里偷闲，总结了一下信息收集的相关知识，后面会对每一个部分进行详细的介绍。</p><p><img src="/images/image-20211112222207592.png" alt="image-20211112222207592"></p><h2 id="网站情况"><a href="#网站情况" class="headerlink" title="网站情况"></a>网站情况</h2><h3 id="收集域名信息"><a href="#收集域名信息" class="headerlink" title="收集域名信息"></a>收集域名信息</h3><p>1.Whois查询</p><p>Whois是一个用于查询域名是否被注册以及注册域名详细信息的数据库（如域名所有人，域名注册商），同时用于收集ip地址信息，在kali系统中是已经默认安装好的。使用方式：whois + 域名</p><p><img src="/images/image-20211113125003399.png" alt="image-20211113125003399"></p><p>2.超级ping</p><p>在<a href="http://www.ping.cn中检测域名对应的ip,如果ip都一样,可以暂且认为其真实ip为检测到的,可以通过直接访问ip看看和域名访问到的是否一样./">www.ping.cn中检测域名对应的ip，如果IP都一样，可以暂且认为其真实ip为检测到的，可以通过直接访问ip看看和域名访问到的是否一样。</a></p><p><img src="/images/image-20211113125357674.png" alt="image-20211113125357674"></p><p>3.子域名收集</p><p>（1）可以通过Layer子域名挖掘直接检测</p><p>（2）<a href="https://crt.sh进行子域名枚举/">https://crt.sh进行子域名枚举</a></p><p>4.端口信息收集</p><p>使用namp进行扫描</p>]]></content>
       
       
       <categories>
