@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>转置卷积</title>
+      <link href="/2021/11/23/%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/"/>
+      <url>/2021/11/23/%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/</url>
+      
+        <content type="html"><![CDATA[<h1 id="转置卷积"><a href="#转置卷积" class="headerlink" title="转置卷积"></a>转置卷积</h1><p>首先<strong>正常的卷积</strong>为</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0, groups=1, bias=True)</span><br><span class="line"></span><br></pre></td></tr></table></figure><p><img src="/images/image-20211123154933446.png" alt="image-20211123154933446"></p><p>蓝色为输入，蓝色上的阴影为卷积核(kernel)，绿色为输出，蓝色边缘的白色框为padding。</p><p><strong>转置卷积</strong>为</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.ConvTranspose2d(in_channels, out_channels, kernel_size, stride=1, padding=0, output_padding=0, bias=True)</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>卷积和转置卷积函数中的in_channels与out_channels以及kernel_size的含义相同。</p><p><strong>需要注意的是转置卷积中的padding、stride和正常卷积中的padding、stride不同。</strong>在转置卷积中，padding不是蓝色的留白,是kernel向图像中心移动的单位。如下当padding=0时，卷积核刚好和输入边缘相交一个单位。因此padding可以理解为卷积核向中心移动的步数。 同时stride也不再是kernel移动的步数，变为输入单元彼此散开的步数。<br>即：<br><strong>padding=0时，卷积核的起始位置和输入层相交一个像素，当padding=1时，卷积核的起始位置和输入层相交2个像素，依此类推；</strong><br><strong>stride=1时，输入层元素之间没有间隔，当stride=2时，输入层元素之间间隔为1，stride=3时，输入层元素之间间隔为2，以此类推。</strong></p><p>例如：</p><ol><li>padding=0,kernel_size=3,stride=1</li></ol><p>output_padding是对反卷积后的特征图进行边缘填补0，output_padding=0表示不进行填补，output_padding=1表示进行填补一圈0，等于2表示进行填补2圈0.</p><p><img src="/images/image-20211123155409103.png" alt="image-20211123155409103"></p><ol start="2"><li>padding=2,kernel_size=4,stride=1</li></ol><p><img src="/images/image-20211123155502414.png" alt="image-20211123155502414"></p><ol start="3"><li>padding=2,kernel_size=3,stride=1</li></ol><p><img src="/images/image-20211123155525801.png" alt="image-20211123155525801"></p><ol start="4"><li>padding=0,kernel_size=3,stride=2</li></ol><p><img src="/images/image-20211123155545783.png" alt="image-20211123155545783"></p><ol start="5"><li>padding=1,kernel_size=3,stride=2</li></ol><p><img src="/images/image-20211123155600080.png" alt="image-20211123155600080"></p><p>本文转载CSDN博主「LS_learner」的原创文章，原文链接：<a href="https://blog.csdn.net/qq_39777550/article/details/108965144">https://blog.csdn.net/qq_39777550/article/details/108965144</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 深度学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>pytorch学习</title>
       <link href="/2021/11/22/pytorch%E5%AD%A6%E4%B9%A0/"/>
       <url>/2021/11/22/pytorch%E5%AD%A6%E4%B9%A0/</url>
