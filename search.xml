@@ -117,31 +117,6 @@
     
     
     <entry>
-      <title>web漏洞</title>
-      <link href="/2021/12/01/web%E6%BC%8F%E6%B4%9E/"/>
-      <url>/2021/12/01/web%E6%BC%8F%E6%B4%9E/</url>
-      
-        <content type="html"><![CDATA[<h1 id="web漏洞总结"><a href="#web漏洞总结" class="headerlink" title="web漏洞总结"></a>web漏洞总结</h1><p>以下内容来自于小迪渗透课程与(<a href="https://www.yuque.com/samxara/swro13/wk5w9t">https://www.yuque.com/samxara/swro13/wk5w9t</a>)</p><p><img src="/images/1623721425978-e14463d7-40a4-4686-99e5-3ac03dfe8c33-16383273503572.png" alt="img"></p><h1 id="漏洞危害情况"><a href="#漏洞危害情况" class="headerlink" title="漏洞危害情况"></a>漏洞危害情况</h1><h2 id="1-SQL注入"><a href="#1-SQL注入" class="headerlink" title="1. SQL注入"></a>1. SQL注入</h2><ul><li>攻击者未经授权可以访问数据库中的数据，盗取用户的隐私以及个人信息，造成用户的信息泄露。</li><li>可以对数据库的数据进行增加或删除操作，例如私自添加或删除管理员账号。</li><li>如果网站目录存在写入权限，可以写入网页木马。攻击者进而可以对网页进行篡改，发布一些违法信息等。</li><li>经过提权等步骤，服务器最高权限被攻击者获取。攻击者可以远程控制服务器，安装后门，得以修改或控制操作系统。</li></ul><h2 id="2-XSS"><a href="#2-XSS" class="headerlink" title="2. XSS"></a>2. XSS</h2><ol><li><ul><li>窃取管理员帐号或Cookie，入侵者可以冒充管理员的身份登录后台。使得入侵者具有恶意操纵后台数据的能力，包括读取、更改、添加、删除一些信息。</li></ul></li><li><ul><li>窃取用户的个人信息或者登录帐号，对网站的用户安全产生巨大的威胁。例如冒充用户身份进行各种操作</li></ul></li><li><ul><li>网站挂马。先将恶意攻击代码嵌入到Web应用程序之中。当用户浏览该挂马页面时，用户的计算机会被植入木马</li></ul></li><li><ul><li>发送广告或者垃圾信息。攻击者可以利用XSS漏洞植入广告，或者发送垃圾信息，严重影响到用户的正常使用</li></ul></li></ol><h2 id="3-XXE"><a href="#3-XXE" class="headerlink" title="3. XXE"></a>3. XXE</h2><ol><li><ul><li>读取任意文件</li><li>执行系统命令</li></ul></li><li><ul><li>探测内网端口</li><li>攻击内网网站</li></ul></li></ol><h2 id="4-文件上传"><a href="#4-文件上传" class="headerlink" title="4. 文件上传"></a>4. 文件上传</h2><p>如果 Web应用程序存在上传漏洞 , 攻击者甚至可以将一个webshell直接上传到服务器上 </p><h2 id="5-文件包含"><a href="#5-文件包含" class="headerlink" title="5. 文件包含"></a>5. 文件包含</h2><p>可能含有文件包含的漏洞：inurl:php?file=</p><ol><li><ul><li>web服务器的文件被外界浏览导致信息泄露</li><li>脚本被任意执行，可能会篡改网站、执行非法操作、攻击其他网站</li></ul></li></ol><h2 id="6-文件读取"><a href="#6-文件读取" class="headerlink" title="6. 文件读取"></a>6. 文件读取</h2><p>通过任意文件下载，可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等</p><h2 id="7-CSRF"><a href="#7-CSRF" class="headerlink" title="7. CSRF"></a>7. CSRF</h2><ol><li><ul><li>以受害者名义发送邮件，发消息，盗取受害者的账号，甚至购买商品，虚拟货币转账，修改受害者的网络配置（比如修改路由器DNS、重置路由器密码）等等</li><li>个人隐私泄露、机密资料泄露、用户甚至企业的财产安全</li></ul></li></ol><h2 id="8-SSRF"><a href="#8-SSRF" class="headerlink" title="8. SSRF"></a>8. SSRF</h2><ul><li><ol><li><p>可以对外网、服务器所在内网、本地进行端口扫描，获取一些服务的banner 信息</p></li><li><p>攻击运行在内网或本地的应用程序</p></li></ol></li><li><ol><li><p>攻击内外网的 web 应用，主要是使用 GET 参数就可以实现的攻击(如：Struts2，sqli)</p></li><li><p>下载内网资源(如：利用file协议读取本地文件等)</p></li></ol></li><li><ol><li><p>进行跳板</p></li><li><p>无视cdn</p></li></ol></li><li><ol><li><p>利用Redis未授权访问，HTTP CRLF注入实现getshell</p><p><img src="/images/image-20220216121849554.png" alt="image-20220216121849554"></p></li></ol></li></ul><h2 id="9-反序列化"><a href="#9-反序列化" class="headerlink" title="9. 反序列化"></a>9. 反序列化</h2><p>远程攻击者利用漏洞可在未经任何身份验证的服务器主机上执行任意代码，被攻击者间接控制服务器</p><h2 id="10-代码执行"><a href="#10-代码执行" class="headerlink" title="10.代码执行"></a>10.代码执行</h2><ul><li><ol><li><p>代码执行漏洞造成的原理是由于服务器端没有针对执行函数做过滤，导致在没有指定绝对路径的情况下就执行命令，可能会允许攻击者通过改变 $PATH 或程序执行环境的其他方面来执行一个恶意构造的代码。造成代码执行相关的函数分别是：eval、assert函数</p></li><li><p>暴露服务器信息</p></li></ol></li><li><ol><li><p>木马植入</p></li><li><p>敏感文件暴露</p></li></ol></li><li><ol><li>可能升级为命令执行</li></ol></li></ul><h2 id="11-逻辑漏洞"><a href="#11-逻辑漏洞" class="headerlink" title="11. 逻辑漏洞"></a>11. 逻辑漏洞</h2><ul><li><ol><li><p>在提交订单的时候抓取数据包或者直接修改前端代码，然后对订单的金额任意修改。</p></li><li><p>黑客只需要抓取Response数据包便知道验证码是多少或直接绕过</p></li></ol></li><li><ol><li><p>有些业务的接口，因为缺少了对用户的登陆凭证的较验或者是验证存在缺陷，导致黑客可以未经授权访问这些敏感信息甚至是越权操作</p></li><li><p>有些关键性的接口因为没有做验证或者其它预防机制，容易遭到枚举攻击</p></li></ol></li><li><ol><li><p>Cookie的效验值过于简单。有些web对于cookie的生成过于单一或者简单，导致黑客可以对cookie的效验值进行一个枚举</p></li><li><p>单纯读取内存值数据来当作用户凭证</p></li></ol></li><li><ol><li>用户修改密码时，邮箱中会收到一个含有auth的链接，在有效期内用户点击链接，即可进入重置密码环节。而大部分网站对于auth的生成都是采用rand()函数，那么这里就存在一个问题了，Windows环境下rand()最大值为32768，所以这个auth的值是可以被枚举的</li></ol></li></ul><h2 id="12-目录遍历"><a href="#12-目录遍历" class="headerlink" title="12. 目录遍历"></a>12. 目录遍历</h2><p>攻击者通过访问网站某一目录时，该目录没有默认首页文件或没有正确设置默认首页文件，将会把整个目录结构列出来，将网站结构完全暴露给攻击者； 攻击者可能通过浏览目录结构，访问到某些隐秘文件（如PHPINFO文件、服务器探针文件、网站管理员后台访问地址、数据库连接文件等）</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> web安全 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> web漏洞 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>web安全读书笔记</title>
       <link href="/2021/12/01/web%E5%AE%89%E5%85%A8%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
       <url>/2021/12/01/web%E5%AE%89%E5%85%A8%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
@@ -159,6 +134,31 @@
         <tags>
             
             <tag> 读书笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>web漏洞</title>
+      <link href="/2021/12/01/web%E6%BC%8F%E6%B4%9E/"/>
+      <url>/2021/12/01/web%E6%BC%8F%E6%B4%9E/</url>
+      
+        <content type="html"><![CDATA[<h1 id="web漏洞总结"><a href="#web漏洞总结" class="headerlink" title="web漏洞总结"></a>web漏洞总结</h1><p>以下内容来自于小迪渗透课程与(<a href="https://www.yuque.com/samxara/swro13/wk5w9t">https://www.yuque.com/samxara/swro13/wk5w9t</a>)</p><p><img src="/images/1623721425978-e14463d7-40a4-4686-99e5-3ac03dfe8c33-16383273503572.png" alt="img"></p><h1 id="漏洞危害情况"><a href="#漏洞危害情况" class="headerlink" title="漏洞危害情况"></a>漏洞危害情况</h1><h2 id="1-SQL注入"><a href="#1-SQL注入" class="headerlink" title="1. SQL注入"></a>1. SQL注入</h2><ul><li>攻击者未经授权可以访问数据库中的数据，盗取用户的隐私以及个人信息，造成用户的信息泄露。</li><li>可以对数据库的数据进行增加或删除操作，例如私自添加或删除管理员账号。</li><li>如果网站目录存在写入权限，可以写入网页木马。攻击者进而可以对网页进行篡改，发布一些违法信息等。</li><li>经过提权等步骤，服务器最高权限被攻击者获取。攻击者可以远程控制服务器，安装后门，得以修改或控制操作系统。</li></ul><h2 id="2-XSS"><a href="#2-XSS" class="headerlink" title="2. XSS"></a>2. XSS</h2><ol><li><ul><li>窃取管理员帐号或Cookie，入侵者可以冒充管理员的身份登录后台。使得入侵者具有恶意操纵后台数据的能力，包括读取、更改、添加、删除一些信息。</li></ul></li><li><ul><li>窃取用户的个人信息或者登录帐号，对网站的用户安全产生巨大的威胁。例如冒充用户身份进行各种操作</li></ul></li><li><ul><li>网站挂马。先将恶意攻击代码嵌入到Web应用程序之中。当用户浏览该挂马页面时，用户的计算机会被植入木马</li></ul></li><li><ul><li>发送广告或者垃圾信息。攻击者可以利用XSS漏洞植入广告，或者发送垃圾信息，严重影响到用户的正常使用</li></ul></li></ol><h2 id="3-XXE"><a href="#3-XXE" class="headerlink" title="3. XXE"></a>3. XXE</h2><ol><li><ul><li>读取任意文件</li><li>执行系统命令</li></ul></li><li><ul><li>探测内网端口</li><li>攻击内网网站</li></ul></li></ol><h2 id="4-文件上传"><a href="#4-文件上传" class="headerlink" title="4. 文件上传"></a>4. 文件上传</h2><p>如果 Web应用程序存在上传漏洞 , 攻击者甚至可以将一个webshell直接上传到服务器上 </p><h2 id="5-文件包含"><a href="#5-文件包含" class="headerlink" title="5. 文件包含"></a>5. 文件包含</h2><p>可能含有文件包含的漏洞：inurl:php?file=</p><ol><li><ul><li>web服务器的文件被外界浏览导致信息泄露</li><li>脚本被任意执行，可能会篡改网站、执行非法操作、攻击其他网站</li></ul></li></ol><h2 id="6-文件读取"><a href="#6-文件读取" class="headerlink" title="6. 文件读取"></a>6. 文件读取</h2><p>通过任意文件下载，可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等</p><h2 id="7-CSRF"><a href="#7-CSRF" class="headerlink" title="7. CSRF"></a>7. CSRF</h2><ol><li><ul><li>以受害者名义发送邮件，发消息，盗取受害者的账号，甚至购买商品，虚拟货币转账，修改受害者的网络配置（比如修改路由器DNS、重置路由器密码）等等</li><li>个人隐私泄露、机密资料泄露、用户甚至企业的财产安全</li></ul></li></ol><h2 id="8-SSRF"><a href="#8-SSRF" class="headerlink" title="8. SSRF"></a>8. SSRF</h2><ul><li><ol><li><p>可以对外网、服务器所在内网、本地进行端口扫描，获取一些服务的banner 信息</p></li><li><p>攻击运行在内网或本地的应用程序</p></li></ol></li><li><ol><li><p>攻击内外网的 web 应用，主要是使用 GET 参数就可以实现的攻击(如：Struts2，sqli)</p></li><li><p>下载内网资源(如：利用file协议读取本地文件等)</p></li></ol></li><li><ol><li><p>进行跳板</p></li><li><p>无视cdn</p></li></ol></li><li><ol><li><p>利用Redis未授权访问，HTTP CRLF注入实现getshell</p><p><img src="/images/image-20220216121849554.png" alt="image-20220216121849554"></p></li></ol></li></ul><h2 id="9-反序列化"><a href="#9-反序列化" class="headerlink" title="9. 反序列化"></a>9. 反序列化</h2><p>远程攻击者利用漏洞可在未经任何身份验证的服务器主机上执行任意代码，被攻击者间接控制服务器</p><h2 id="10-代码执行"><a href="#10-代码执行" class="headerlink" title="10.代码执行"></a>10.代码执行</h2><ul><li><ol><li><p>代码执行漏洞造成的原理是由于服务器端没有针对执行函数做过滤，导致在没有指定绝对路径的情况下就执行命令，可能会允许攻击者通过改变 $PATH 或程序执行环境的其他方面来执行一个恶意构造的代码。造成代码执行相关的函数分别是：eval、assert函数</p></li><li><p>暴露服务器信息</p></li></ol></li><li><ol><li><p>木马植入</p></li><li><p>敏感文件暴露</p></li></ol></li><li><ol><li>可能升级为命令执行</li></ol></li></ul><h2 id="11-逻辑漏洞"><a href="#11-逻辑漏洞" class="headerlink" title="11. 逻辑漏洞"></a>11. 逻辑漏洞</h2><ul><li><ol><li><p>在提交订单的时候抓取数据包或者直接修改前端代码，然后对订单的金额任意修改。</p></li><li><p>黑客只需要抓取Response数据包便知道验证码是多少或直接绕过</p></li></ol></li><li><ol><li><p>有些业务的接口，因为缺少了对用户的登陆凭证的较验或者是验证存在缺陷，导致黑客可以未经授权访问这些敏感信息甚至是越权操作</p></li><li><p>有些关键性的接口因为没有做验证或者其它预防机制，容易遭到枚举攻击</p></li></ol></li><li><ol><li><p>Cookie的效验值过于简单。有些web对于cookie的生成过于单一或者简单，导致黑客可以对cookie的效验值进行一个枚举</p></li><li><p>单纯读取内存值数据来当作用户凭证</p></li></ol></li><li><ol><li>用户修改密码时，邮箱中会收到一个含有auth的链接，在有效期内用户点击链接，即可进入重置密码环节。而大部分网站对于auth的生成都是采用rand()函数，那么这里就存在一个问题了，Windows环境下rand()最大值为32768，所以这个auth的值是可以被枚举的</li></ol></li></ul><h2 id="12-目录遍历"><a href="#12-目录遍历" class="headerlink" title="12. 目录遍历"></a>12. 目录遍历</h2><p>攻击者通过访问网站某一目录时，该目录没有默认首页文件或没有正确设置默认首页文件，将会把整个目录结构列出来，将网站结构完全暴露给攻击者； 攻击者可能通过浏览目录结构，访问到某些隐秘文件（如PHPINFO文件、服务器探针文件、网站管理员后台访问地址、数据库连接文件等）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> web漏洞 </tag>
             
         </tags>
       
