@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>密码学基础</title>
+      <link href="/2023/02/14/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/"/>
+      <url>/2023/02/14/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-密码学基础"><a href="#1-密码学基础" class="headerlink" title="1.密码学基础"></a>1.密码学基础</h1><h2 id="1-1-密码"><a href="#1-1-密码" class="headerlink" title="1.1 密码"></a>1.1 密码</h2><p>根据密钥的使用方法，可以将密码分为<strong>对称密码</strong>与<strong>公钥密钥</strong>（也称为非对称密码）两种。使用密码是为了<strong>保证消息的机密性</strong>。</p><p><strong>对称密码</strong>是指在加密与解密过程中使用<strong>同一密钥</strong>的方式。</p><p><strong>公钥密码</strong>是指在加密和解密时使用<strong>不同的密钥</strong>的方式。</p><p><strong>混合密码系统</strong>是将对称密码和公钥密码结合起来的密码方式。</p><p><img src="/images/image-20230215203720617.png" alt="image-20230215203720617"></p><h2 id="1-2-其他密码技术"><a href="#1-2-其他密码技术" class="headerlink" title="1.2 其他密码技术"></a>1.2 其他密码技术</h2><ol><li><strong>单向散列函数</strong>是利用哈希函数来计算散列值，其保证了消息的<strong>完整性</strong>。完整性是指数据是正确的而不是伪造的，通过使用单向散列函数就可以检测数据是否被篡改过。</li><li><strong>消息验证码</strong>是一种可以<strong>保证完整性和提供认证</strong>的密码技术，其可以确认消息是否被篡改，同时也可以确认消息是否来自期待的通信对象。</li><li><strong>数字签名</strong>是一种能够确保<strong>完整性</strong>、<strong>提供认证</strong>并<strong>防止否认</strong>的密码技术。</li></ol><p><img src="/images/image-20230215203650669.png" alt="image-20230215203650669"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 密码学基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>联邦学习实战</title>
       <link href="/2022/05/15/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/"/>
       <url>/2022/05/15/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/</url>
