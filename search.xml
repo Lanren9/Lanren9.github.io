@@ -4,11 +4,30 @@
   
     
     <entry>
+      <title>分类模型处理</title>
+      <link href="/2023/05/14/%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E5%A4%84%E7%90%86/"/>
+      <url>/2023/05/14/%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E5%A4%84%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-相关矩阵（Correlation-Matrix）"><a href="#1-相关矩阵（Correlation-Matrix）" class="headerlink" title="1.相关矩阵（Correlation Matrix）"></a>1.相关矩阵（Correlation Matrix）</h2><p>删除相关变量以改进模型是必要的。可以使用pandas“.corr（）”函数找到相关性，并可以使用plotly express可视化相关性矩阵。相关代码如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import plotly.express as px</span><br><span class="line">px.imshow(df.corr(),title=&quot;Correlation Plot of the Heat Failure Prediction&quot;)</span><br></pre></td></tr></table></figure><h4 id="数据分析相关代码："><a href="#数据分析相关代码：" class="headerlink" title="数据分析相关代码："></a>数据分析相关代码：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import seaborn as sns</span><br><span class="line">sns.pairplot(df,hue=&quot;HeartDisease&quot;)</span><br></pre></td></tr></table></figure><p>这段代码使用Seaborn库中的pairplot函数，用于绘制数据集中各个变量之间的散点图和直方图，并且根据“HeartDisease”变量的不同取值对数据进行分组，以不同颜色来表示。</p><p>具体来说，df是一个数据框，包含多个变量（列），pairplot函数会对每两个变量之间进行散点图和直方图的绘制。hue参数指定了用于分组的变量名，即“HeartDisease”，如果数据集中有该变量，则会根据该变量的取值来对数据进行分组，以不同颜色来表示。如果数据集中没有该变量，则会忽略该参数。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import seaborn as sns</span><br><span class="line">sns.histplot(df[col],kde=True)</span><br></pre></td></tr></table></figure><p>这行代码使用 Seaborn 库中的 histplot 函数，绘制数据框 df 中指定列 col 的直方图。kde=True 表示同时绘制核密度估计曲线。核密度估计是一种通过对数据进行平滑处理来估计概率密度函数的方法，可以更好地展示数据的分布情况。</p><h2 id="2-特征缩放（Feature-Scaling）"><a href="#2-特征缩放（Feature-Scaling）" class="headerlink" title="2.特征缩放（Feature Scaling）"></a>2.特征缩放（Feature Scaling）</h2><p>特征缩放是指对数据集中的特征进行缩放，使得所有特征都处于相同的尺度范围内，以便更好地应用于机器学习算法中。在进行特征缩放之前，不同的特征可能具有不同的尺度，例如某些特征可能是小数，而另一些特征可能是整数或非常大的数字。这会导致模型在学习时对不同特征的权重分配不均，从而影响模型的性能。</p><p>常见的特征缩放方法包括：</p><ol><li><p>标准化（Standardization）：将特征缩放到均值为0，方差为1的标准正态分布中，使得特征的取值范围在[-3,3]之间。</p></li><li><p>归一化（Normalization）：将特征缩放到[0,1]之间，使得特征的取值范围在[0,1]之间。</p></li><li><p>对数变换（Log transformation）：对特征进行对数变换，使得特征的取值范围更加均匀分布。</p></li></ol><p>通过特征缩放，可以提高模型的性能，使得模型更加准确地预测结果。</p><h4 id="如何选择标准化还是归一化？"><a href="#如何选择标准化还是归一化？" class="headerlink" title="如何选择标准化还是归一化？"></a>如何选择标准化还是归一化？</h4><ul><li><p>当知道数据的分布不遵循高斯分布时，可以使用归一化。这在不假设任何数据分布的算法（如K-最近邻和神经网络）中是有用的。</p></li><li><p>另一方面，在数据遵循高斯分布的情况下，标准化可能会有所帮助。然而，这并不一定是真的。此外，与标准化不同，标准化没有边界范围。因此，即使您的数据中有异常值，它们也不会受到标准化的影响。</p></li></ul><h2 id="3-文本特征编码"><a href="#3-文本特征编码" class="headerlink" title="3.文本特征编码"></a>3.文本特征编码</h2><h4 id="1-Label-Encoding——-For-Tree-based-Machine-Learning-Algorithms"><a href="#1-Label-Encoding——-For-Tree-based-Machine-Learning-Algorithms" class="headerlink" title="1.Label Encoding——-For Tree based Machine Learning Algorithms"></a>1.Label Encoding——-For Tree based Machine Learning Algorithms</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.preprocessing import LabelEncoder</span><br><span class="line">df_tree = df.apply(LabelEncoder().fit_transform)</span><br></pre></td></tr></table></figure><p>这行代码的作用是将 DataFrame（df）中的所有列进行标签编码（Label Encoding）处理，并返回一个新的 DataFrame（df_tree）。</p><p>具体来说，<code>LabelEncoder()</code> 是一个类，它将字符串标签转换为数字编码。<code>.fit_transform()</code> 方法将 DataFrame 中的每一列都进行标签编码，并返回一个新的 DataFrame。因为这里使用了 <code>.apply()</code> 方法，所以每一列都会被依次处理。</p><p>标签编码是将不连续的数字或文本转换为连续的数字编码的过程。例如，如果一个列中有三个不同的字符串标签：“red”、“green”和“blue”，则标签编码后会分别转换为 0、1 和 2。这种编码方式通常用于将分类数据转换为数值数据，以便在机器学习算法中使用。</p><h4 id="2-One-Hot-Encoding—–For-not-Tree-based-Machine-Learning-Algorithms"><a href="#2-One-Hot-Encoding—–For-not-Tree-based-Machine-Learning-Algorithms" class="headerlink" title="2.One Hot Encoding—–For not Tree based Machine Learning Algorithms"></a>2.One Hot Encoding—–For not Tree based Machine Learning Algorithms</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#pd.get_dummies()</span><br><span class="line">df_nontree=pd.get_dummies(df,columns=string_col,drop_first=False)</span><br></pre></td></tr></table></figure><p>这段代码使用pandas中的get_dummies()函数，将数据框df中的string_col列进行one-hot编码，并将编码结果添加到新的数据框df_nontree中。其中，drop_first参数为False表示不删除第一类别，即生成所有类别的编码列。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>密码学基础</title>
       <link href="/2023/02/14/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/"/>
       <url>/2023/02/14/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/</url>
       
-        <content type="html"><![CDATA[<h1 id="1-密码学基础"><a href="#1-密码学基础" class="headerlink" title="1.密码学基础"></a>1.密码学基础</h1><h2 id="1-1-密码"><a href="#1-1-密码" class="headerlink" title="1.1 密码"></a>1.1 密码</h2><p>根据密钥的使用方法，可以将密码分为<strong>对称密码</strong>与<strong>公钥密钥</strong>（也称为非对称密码）两种。使用密码是为了<strong>保证消息的机密性</strong>。</p><p><strong>对称密码</strong>是指在加密与解密过程中使用<strong>同一密钥</strong>的方式。</p><p><strong>公钥密码</strong>是指在加密和解密时使用<strong>不同的密钥</strong>的方式。</p><p><strong>混合密码系统</strong>是将对称密码和公钥密码结合起来的密码方式。</p><p><img src="/images/image-20230215203720617.png" alt="image-20230215203720617"></p><h2 id="1-2-其他密码技术"><a href="#1-2-其他密码技术" class="headerlink" title="1.2 其他密码技术"></a>1.2 其他密码技术</h2><ol><li><strong>单向散列函数</strong>是利用哈希函数来计算散列值，其保证了消息的<strong>完整性</strong>。完整性是指数据是正确的而不是伪造的，通过使用单向散列函数就可以检测数据是否被篡改过。</li><li><strong>消息验证码</strong>是一种可以<strong>保证完整性和提供认证</strong>的密码技术，其可以确认消息是否被篡改，同时也可以确认消息是否来自期待的通信对象。</li><li><strong>数字签名</strong>是一种能够确保<strong>完整性</strong>、<strong>提供认证</strong>并<strong>防止否认</strong>的密码技术。</li></ol><p><img src="/images/image-20230215203650669.png" alt="image-20230215203650669"></p>]]></content>
+        <content type="html"><![CDATA[<p>[TOC]</p><h1 id="1-密码学基础"><a href="#1-密码学基础" class="headerlink" title="1.密码学基础"></a>1.密码学基础</h1><h2 id="1-1-密码"><a href="#1-1-密码" class="headerlink" title="1.1 密码"></a>1.1 密码</h2><p>根据密钥的使用方法，可以将密码分为<strong>对称密码</strong>与<strong>公钥密钥</strong>（也称为非对称密码）两种。使用密码是为了<strong>保证消息的机密性</strong>。</p><p><strong>对称密码</strong>是指在加密与解密过程中使用<strong>同一密钥</strong>的方式。</p><p><strong>公钥密码</strong>是指在加密和解密时使用<strong>不同的密钥</strong>的方式。</p><p><strong>混合密码系统</strong>是将对称密码和公钥密码结合起来的密码方式。</p><p><img src="/images/image-20230215203720617.png" alt="image-20230215203720617"></p><h2 id="1-2-其他密码技术"><a href="#1-2-其他密码技术" class="headerlink" title="1.2 其他密码技术"></a>1.2 其他密码技术</h2><ol><li><strong>单向散列函数</strong>是利用哈希函数来计算散列值，其保证了消息的<strong>完整性</strong>。完整性是指数据是正确的而不是伪造的，通过使用单向散列函数就可以检测数据是否被篡改过。</li><li><strong>消息验证码</strong>是一种可以<strong>保证完整性和提供认证</strong>的密码技术，其可以确认消息是否被篡改，同时也可以确认消息是否来自期待的通信对象。</li><li><strong>数字签名</strong>是一种能够确保<strong>完整性</strong>、<strong>提供认证</strong>并<strong>防止否认</strong>的密码技术。</li></ol><p><img src="/images/image-20230215203650669.png" alt="image-20230215203650669"></p><h2 id="1-3-对称密码"><a href="#1-3-对称密码" class="headerlink" title="1.3 对称密码"></a>1.3 对称密码</h2><p>对称密码是加密和解密使用相同密钥的方式，在计算机上的加密解密过程如下：</p><ol><li><p>对明文进行<strong>编码</strong>为<strong>比特序列</strong>，例如将字母根据ASCII编码映射为比特序列；</p></li><li><p>加密：明文编码后的比特序列与密钥进行<strong>XOR运算</strong>，得到密文，运算规则如下：</p><p><img src="/images/image-20230215211144946.png" alt="image-20230215211144946"></p></li><li><p>解密：密文再次与密钥进行XOR运算，得到明文。</p></li></ol><p><img src="/images/image-20230215211353094.png" alt="image-20230215211353094"></p>]]></content>
       
       
       
@@ -65,31 +84,6 @@
         <tags>
             
             <tag> mysql </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hackthebox</title>
-      <link href="/2022/04/30/Hackthebox/"/>
-      <url>/2022/04/30/Hackthebox/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> web安全 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Hackbox实战 </tag>
             
         </tags>
       
