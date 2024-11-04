@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>逻辑漏洞 | lanren的博客</title><meta name="keywords" content="逻辑漏洞"><meta name="author" content="lanren"><meta name="copyright" content="lanren"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="逻辑漏洞逻辑越权逻辑越权分为水平越权、垂直越权与未授权访问 水平越权：通过更换的某个 ID 之类的身份标识，从而使 A 账号获取（修改、删除等）B 账号数据。  垂直越权：使用低权限身份的账号，发送高权限账号才能有的请求，获得其高权限的操作。  未授权访问：通过删除请求中的认证信息后重放该请求，依旧可以访问或者完成操作。 如果在访问网站的数据包中有传输用户的编号、用户组编号或者类型编号的时候，那么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逻辑漏洞">
+<meta property="og:url" content="http://example.com/2021/12/06/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="lanren的博客">
+<meta property="og:description" content="逻辑漏洞逻辑越权逻辑越权分为水平越权、垂直越权与未授权访问 水平越权：通过更换的某个 ID 之类的身份标识，从而使 A 账号获取（修改、删除等）B 账号数据。  垂直越权：使用低权限身份的账号，发送高权限账号才能有的请求，获得其高权限的操作。  未授权访问：通过删除请求中的认证信息后重放该请求，依旧可以访问或者完成操作。 如果在访问网站的数据包中有传输用户的编号、用户组编号或者类型编号的时候，那么">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/11.jpg">
+<meta property="article:published_time" content="2021-12-06T13:36:39.000Z">
+<meta property="article:modified_time" content="2022-01-05T13:28:38.000Z">
+<meta property="article:author" content="lanren">
+<meta property="article:tag" content="逻辑漏洞">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/11.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/12/06/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '逻辑漏洞',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-05 21:28:38'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="lanren的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/11.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">lanren的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">逻辑漏洞</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-06T13:36:39.000Z" title="发表于 2021-12-06 21:36:39">2021-12-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-05T13:28:38.000Z" title="更新于 2022-01-05 21:28:38">2022-01-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/web%E5%AE%89%E5%85%A8/">web安全</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">753</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="逻辑漏洞"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a>逻辑漏洞</h1><h2 id="逻辑越权"><a href="#逻辑越权" class="headerlink" title="逻辑越权"></a>逻辑越权</h2><p><strong>逻辑越权分为水平越权、垂直越权与未授权访问</strong></p>
+<p><strong>水平越权：</strong>通过更换的某个 ID 之类的身份标识，从而使 A 账号获取（修改、删除等）B 账号数据。 </p>
+<p><strong>垂直越权：</strong>使用低权限身份的账号，发送高权限账号才能有的请求，获得其高权限的操作。 </p>
+<p><strong>未授权访问：</strong>通过删除请求中的认证信息后重放该请求，依旧可以访问或者完成操作。</p>
+<p><em><strong>如果在访问网站的数据包中有传输用户的编号、用户组编号或者类型编号的时候，那么尝试对这个值进行修改就是测试越权漏洞的基本。</strong></em></p>
+<p><img src="/images/image-20211206213830709.png" alt="image-20211206213830709"></p>
+<p><img src="/images/image-20211206214138091.png" alt="image-20211206214138091"></p>
+<h3 id="墨者学院实战："><a href="#墨者学院实战：" class="headerlink" title="墨者学院实战："></a>墨者学院实战：</h3><p><img src="/images/image-20211206222039178.png" alt="image-20211206222039178"></p>
+<p>登录后抓包，发现ID这种身份标识，</p>
+<p><img src="/images/image-20211206222128936.png" alt="image-20211206222128936"></p>
+<p>尝试更换成ID，结果返回他人信息</p>
+<p><img src="/images/image-20211206222335605.png" alt="image-20211206222335605"></p>
+<p>进行穷举爆破，得到所有人的信息</p>
+<p><img src="/images/image-20211206222722603.png" alt="image-20211206222722603"></p>
+<p>得到了所有人的ID，密码等信息，但是怎么知道题目要求的人物的账号ID呢，要找页面中有关人物的所有信息，查看网页源代码</p>
+<p><img src="/images/image-20211206223040142.png" alt="image-20211206223040142"></p>
+<p>发现人物的ID为20128880316，根据爆破得到的信息</p>
+<p><img src="/images/image-20211206223207152.png" alt="image-20211206223207152"></p>
+<p>密码经过MD5加密，解密得到密码，登录拿到flag。</p>
+<h2 id="逻辑越权之登录脆弱"><a href="#逻辑越权之登录脆弱" class="headerlink" title="逻辑越权之登录脆弱"></a>逻辑越权之登录脆弱</h2><h3 id="登录脆弱"><a href="#登录脆弱" class="headerlink" title="登录脆弱"></a>登录脆弱</h3><p>如果网站采用的协议是http，那么大多数情况下其数据包中登录的账号与密码是不加密的，但不是绝对，此时可以看一下其加密的方式是什么，目前大多是MD5和Base64，此时就可以利用burpsuite进行爆破，但是如果是https协议的话一般加密方式是其自己定义的，所以难以判断加密类型。</p>
+<h4 id="Cookie-脆弱点验证"><a href="#Cookie-脆弱点验证" class="headerlink" title="Cookie 脆弱点验证"></a>Cookie 脆弱点验证</h4><p>其漏洞原理是由于在登陆过程中对用户的cookie进行简单的验证，例如：登录之前会对cookie进行验证，由于方式很过于简单只是对cookie是否为空进行判断，也就是说传递的值不是为空程序就认为你是登录了，因此这就形成了弱cookie登录的漏洞。存在另一种情况就是cookie设置的很简单，我们可以尝试更改cookie的值来达到访问。例如如下图：</p>
+<p><img src="/images/image-20211208133313325.png" alt="image-20211208133313325"></p>
+<p>这里的cookie很简单，所以可以伪造cookie来达到越权访问，或者未授权访问。</p>
+<h2 id="找回机制与接口安全"><a href="#找回机制与接口安全" class="headerlink" title="找回机制与接口安全"></a>找回机制与接口安全</h2><p><strong>找回重置机制</strong>：客户端回显（验证码可以通过在客户端浏览器抓包得到），Response 状态值（根据状态值来确定验证码是否正确，可以通过修改状态值来验证通过），验证码爆破，找回流程绕过（绕过验证码验证）等</p>
+<p><strong>验证码验证时要确定网站时前端验证还是后端验证。</strong></p>
+<p>客户端回显</p>
+<p><strong>接口安全</strong>：接口调用乱用，短信轰炸，来电轰炸等</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">lanren</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/12/06/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">http://example.com/2021/12/06/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">lanren的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a></div><div class="post_share"><div class="social-share" data-image="/img/11.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/07/MYSQL%E5%9F%BA%E7%A1%80/"><img class="prev-cover" src="/img/10.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MYSQL基础</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/03/Pikachu%E6%BC%8F%E6%B4%9E%E7%BB%83%E4%B9%A0/"><img class="next-cover" src="/img/10.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Pikachu漏洞练习</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/touxiang.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">lanren</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.</span> <span class="toc-text">逻辑漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83"><span class="toc-number">1.1.</span> <span class="toc-text">逻辑越权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%A8%E8%80%85%E5%AD%A6%E9%99%A2%E5%AE%9E%E6%88%98%EF%BC%9A"><span class="toc-number">1.1.1.</span> <span class="toc-text">墨者学院实战：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E4%B9%8B%E7%99%BB%E5%BD%95%E8%84%86%E5%BC%B1"><span class="toc-number">1.2.</span> <span class="toc-text">逻辑越权之登录脆弱</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E8%84%86%E5%BC%B1"><span class="toc-number">1.2.1.</span> <span class="toc-text">登录脆弱</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Cookie-%E8%84%86%E5%BC%B1%E7%82%B9%E9%AA%8C%E8%AF%81"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Cookie 脆弱点验证</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6%E4%B8%8E%E6%8E%A5%E5%8F%A3%E5%AE%89%E5%85%A8"><span class="toc-number">1.3.</span> <span class="toc-text">找回机制与接口安全</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/04/21/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" title="论文阅读笔记"><img src="/img/6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论文阅读笔记"/></a><div class="content"><a class="title" href="/2024/04/21/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" title="论文阅读笔记">论文阅读笔记</a><time datetime="2024-04-21T08:15:23.000Z" title="发表于 2024-04-21 16:15:23">2024-04-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/29/%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB/" title="秘密分享"><img src="/img/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="秘密分享"/></a><div class="content"><a class="title" href="/2023/11/29/%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB/" title="秘密分享">秘密分享</a><time datetime="2023-11-29T06:30:39.000Z" title="发表于 2023-11-29 14:30:39">2023-11-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/23/%E5%85%A8%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/" title="全同态加密"><img src="/img/10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="全同态加密"/></a><div class="content"><a class="title" href="/2023/07/23/%E5%85%A8%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86/" title="全同态加密">全同态加密</a><time datetime="2023-07-23T05:37:15.000Z" title="发表于 2023-07-23 13:37:15">2023-07-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/15/Split-learning/" title="Split-learning"><img src="/img/11.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Split-learning"/></a><div class="content"><a class="title" href="/2023/05/15/Split-learning/" title="Split-learning">Split-learning</a><time datetime="2023-05-15T06:34:19.000Z" title="发表于 2023-05-15 14:34:19">2023-05-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/14/%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E5%A4%84%E7%90%86/" title="分类模型处理"><img src="/img/9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分类模型处理"/></a><div class="content"><a class="title" href="/2023/05/14/%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E5%A4%84%E7%90%86/" title="分类模型处理">分类模型处理</a><time datetime="2023-05-14T10:32:35.000Z" title="发表于 2023-05-14 18:32:35">2023-05-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By lanren</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
